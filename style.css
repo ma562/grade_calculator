@@ -1,0 +1,190 @@
+html, body	{
+	width: 100%;
+	margin: 0;
+	font-family: 'Nova Flat';
+	background-color: black;
+}
+
+*{
+	margin:  0;
+	padding:  0;
+	box-sizing:  border-box;
+}
+
+body{
+	position:  relative;
+	min-height:  100vh;
+	width: 100%;
+	overflow:  hidden;
+}
+
+.cancellation	{
+	left: 190px;
+	top: 12.8%;
+	height: 90%;
+	width: 21.5%;
+	position: absolute;
+}
+
+.assesments_so_far	{
+	font-size: 20;
+	top: 150px;
+	position: absolute;
+}
+
+.enter	{
+	top: 10px;
+	border-radius: 20px;
+	position: relative;
+	font-size: 20;
+}
+
+.info	{
+	/*color: #FFCB05;*/
+	font-size: 24;
+	color: white;
+	margin: 10px;
+	top: 50px;
+	height: 15%;
+	border-radius: 10px;
+	position: relative;
+	background-color: black
+}
+
+.logo_pts	{
+	margin: 10px;
+	position: relative;
+	top: 50px;
+}
+
+#work_so_far	{
+	color: white;
+	width: 85%;
+	height: 50%;
+	background-color: black;
+	/*background-color: #FFCB05;*/
+	border-radius: 10px;
+	overflow: scroll;
+}
+
+.categoryValues	{
+	margin: 10px;
+}
+
+.category	{
+	font-size: 25;
+	border-radius: 25px;
+	left: 300px;
+	top: 5%;
+	position: absolute;
+	background-color: #18191a;
+	width: 30%;
+	height: 90%;
+	color: #FFCB05;
+}
+
+.categoryLetters	{
+	margin: 10px;
+}
+
+.sidebar {
+	position:  fixed;
+	top:  0;
+	left: 0;
+	height:  100%;
+	width:  240px;
+	background: #18191a;
+	padding:  6px 14px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sidebar .logo_content .logo {
+	font-size: 30;
+	display: flex;
+	color:  #FFF;
+	height: 50px;
+	width: 100%;
+	align-items: center;
+}
+
+#inputField	{
+	font-size: 15;
+	border-radius: 5px;
+	height: 35;
+}
+
+#addToDo	{
+	color: white;
+	border-color: white;
+	border-radius: 25px;
+	background-color: #000000;
+	height: 35;
+	width: 25;
+}
+
+#addToDo:hover	{
+	cursor: pointer;
+}
+
+.input_vals {
+	width: 50px;
+}
+
+.button_format	{
+	align-items:  center;
+	border-radius: 25px;
+	font-size: 12;
+	color: white;
+	border-color: white;
+	text-align: center;
+	top: 10;
+	margin: 10;
+	padding: 10;
+	width: 80%;
+	height: 40;
+	position:  relative;
+	font-family:  'Nova Flat';
+	background-color: #000000;
+}
+
+.cancel_button	{
+	width: 30%;
+	color: transparent;
+	position: relative;
+	border-radius: 10px;
+	margin: 10;
+	/*padding: 10;*/
+	background-color: #18191a;
+	height: 40;
+	font-family:  'Nova Flat';
+	border-color: white;
+	text-align: left;
+}
+
+.mini_button	{
+	color: white;
+	width: 15px;
+	border-color: white;
+	background-color: #000000;
+	border-radius: 10px;
+}
+
+.cancel_button:hover  {
+	cursor: pointer;
+	background-color: red;
+}
+
+.mini_button:hover	{
+	cursor: pointer;
+	background-color: #FFCB05;
+	color: black;
+}
+
+.button_format:hover	{
+	cursor: pointer;
+	color: black;
+	background-color: #FFCB05;
+}
+
+
