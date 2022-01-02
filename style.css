@@ -64,7 +64,7 @@ body{
 	background-color: black;
 	/*background-color: #FFCB05;*/
 	border-radius: 10px;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .categoryValues	{
