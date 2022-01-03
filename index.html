@@ -107,7 +107,8 @@
 									const myVal = completedPts.split(",");
 									var cat = document.getElementById("categoryContainer").innerText + " "
 									for (var i = 0; i < myVal.length; i++)	{
-										var title = document.createElement('p')
+										var title = document.createElement('button')
+										title.classList.add("work_button")
 										title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 										document.getElementById("work_so_far").appendChild(title);
 									}
@@ -157,7 +158,6 @@
 				<div class = "logo_pts">
 					WORK COMPLETED SO FAR
 					<div id = "work_so_far"></div>
-					<div id = "cancel_work">yup</div>
 				</div>
 			</div>
 			<!--sidebar-->

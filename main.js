@@ -100,7 +100,8 @@ addToDoButton.addEventListener('click', function(){
 				const myVal = completedPts.split(",");
 				var cat = document.getElementById("categoryContainer").innerText + " "
 				for (var i = 0; i < myVal.length; i++)	{
-					var title = document.createElement('p')
+					var title = document.createElement('button')
+					title.classList.add("work_button")
 					title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 					document.getElementById("work_so_far").appendChild(title);
 				}
@@ -261,7 +262,9 @@ inputDone.addEventListener('click', function()	{
 		}
 		else if(myPts == null)	{
 			localStorage.setItem(document.getElementById("categoryContainer").innerText + "_donePts", asses_done.value);
-			var title = document.createElement('p')
+
+			var title = document.createElement('button')
+			title.classList.add("work_button")
 			var cat = document.getElementById("categoryContainer").innerText + " "
 			title.innerText = cat + "1: " + asses_done.value + " / " + max;
 			document.getElementById("work_so_far").appendChild(title);
@@ -281,12 +284,14 @@ inputDone.addEventListener('click', function()	{
 				document.getElementById("work_so_far").innerHTML = '';
 				var cat = document.getElementById("categoryContainer").innerText + " "
 				if(myVal.length === 0)	{
-					var title = document.createElement('p')
+					var title = document.createElement('button')
+					title.classList.add("work_button")
 					title.innerText = cat + "1: " + myVal + " / " + max;
 				}
 				else{
 					for (var i = 0; i < myVal.length; i++)	{
-						var title = document.createElement('p')
+						var title = document.createElement('button')
+						title.classList.add("work_button")
 						title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 						document.getElementById("work_so_far").appendChild(title);
 					}

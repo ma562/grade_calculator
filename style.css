@@ -68,6 +68,22 @@ body{
 	overflow: auto;
 }
 
+.work_button	{
+	font-family: 'Nova Flat';
+	font-size: 20;
+	color: white;
+	width: 100%;
+	height: 10%;
+	background-color: black;
+	border-radius: 10px;
+}
+
+.work_button:hover	{
+	color: black;
+	background-color: red;
+	cursor: pointer;
+}
+
 .categoryValues	{
 	margin: 10px;
 }
@@ -129,17 +145,6 @@ body{
 
 #addToDo:hover	{
 	cursor: pointer;
-}
-
-#cancel_work {
-	left: 350px;
-	color: white;
-	background-color: #18191a;
-	width: 15%;
-	height: 90%;
-	position: absolute;
-	top: 35px;
-	font-size: 30;
 }
 
 .input_vals {
