@@ -54,8 +54,6 @@ function arrange_work_buttons_2()	{
 					
 				}
 			})
-
-
 			title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 			document.getElementById("work_so_far").appendChild(title);
 		}
@@ -335,7 +333,6 @@ inputDone.addEventListener('click', function()	{
 				alert("Number of assessments entered exceeded number of total assessments!")
 			}
 			else	{
-
 				localStorage.setItem(document.getElementById("categoryContainer").innerText + "_donePts", donePts + "," + asses_done.value);
 				var completedPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
 				const myVal = completedPts.split(",");
@@ -346,6 +343,7 @@ inputDone.addEventListener('click', function()	{
 					var title = document.createElement('button')
 					title.classList.add("work_button")
 					title.innerText = cat + "1: " + myVal + " / " + max;
+					document.getElementById("work_so_far").appendChild(title);
 				}
 				else{
 					for (var i = 0; i < myVal.length; i++)	{
@@ -355,11 +353,12 @@ inputDone.addEventListener('click', function()	{
 						document.getElementById("work_so_far").appendChild(title);
 					}
 				}
-				arrange_work_buttons_2()	
+					
 			}
 		}
 		asses_done.value = "";	
 	}
+	arrange_work_buttons_2();
 })
 
 asses_done.addEventListener("keyup", function(event)	{
