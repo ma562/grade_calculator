@@ -6,6 +6,62 @@ let inputNumAssess = document.getElementById('addNum');
 let inputMaxPts = document.getElementById('addPts');
 let inputDone = document.getElementById('addDonePts');
 
+
+function arrange_work_buttons_2()	{
+	//SHOW WORK DONE SO FAR
+	document.getElementById("work_so_far").innerHTML = '';
+	var completedPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
+	if(completedPts === "")	{
+		completedPts = null;
+		localStorage.removeItem(document.getElementById("categoryContainer").innerText + "_donePts")
+	}
+	if(completedPts != null)	{
+		let val = document.getElementById("categoryContainer").innerText;
+		let max = localStorage.getItem(val + "_maxPts");
+
+		const myVal = completedPts.split(",");
+		var cat = document.getElementById("categoryContainer").innerText + " "
+		for (var i = 0; i < myVal.length; i++)	{
+			var title = document.createElement('button')
+			title.classList.add("work_button")
+
+			title.addEventListener('click', function(e)	{
+				if(e.target)	{
+					var vals_split = e.target.innerText.split(": ");
+					val_split = vals_split[0].split(" ");
+					var index = val_split[val_split.length - 1] - 1
+					var compPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
+					var dummyPts = compPts.split(",")
+					var answer = window.confirm("Are you sure you want to delete " + vals_split[0] + "?");
+					if(answer)	{
+						//temporarily remove that item list
+						localStorage.removeItem(document.getElementById("categoryContainer").innerText + "_donePts")
+						var new_values = ""
+						for(var k = 0; k < dummyPts.length; k++)	{
+							if(k !== parseInt(index))	{
+								if(new_values === "")	{
+									new_values += dummyPts[k]
+								}
+								else {
+									new_values += "," + dummyPts[k]
+								}
+							}
+						}
+						localStorage.setItem(document.getElementById("categoryContainer").innerText + "_donePts", new_values);
+						console.log(localStorage);
+						arrange_work_buttons();
+					}
+					
+				}
+			})
+
+
+			title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
+			document.getElementById("work_so_far").appendChild(title);
+		}
+	}
+}
+
 addToDoButton.addEventListener('click', function(){
 	localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
 	var paragraph = document.createElement('button')
@@ -91,6 +147,7 @@ addToDoButton.addEventListener('click', function(){
 			document.getElementById("max_points").appendChild(title);
 
 			//SHOW WORK DONE SO FAR
+			/*
 			document.getElementById("work_so_far").innerHTML = '';
 			var completedPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
 			if(completedPts != null)	{
@@ -106,6 +163,8 @@ addToDoButton.addEventListener('click', function(){
 					document.getElementById("work_so_far").appendChild(title);
 				}
 			}
+			*/
+			arrange_work_buttons_2();
 		}
 	})
 	toDoContainer.appendChild(paragraph);
@@ -295,7 +354,8 @@ inputDone.addEventListener('click', function()	{
 						title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 						document.getElementById("work_so_far").appendChild(title);
 					}
-				}	
+				}
+				arrange_work_buttons_2()	
 			}
 		}
 		asses_done.value = "";	
