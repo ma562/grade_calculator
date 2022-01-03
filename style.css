@@ -108,8 +108,10 @@ body{
 	align-items: center;
 }
 
+
 #inputField	{
 	font-size: 15;
+	width: 80%;
 	border-radius: 5px;
 	height: 35;
 }
