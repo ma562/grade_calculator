@@ -9,7 +9,7 @@
 		<script type = "text/javascript">
 			function reload()	{
 				for(var i = 0; i < localStorage.length; i++)	{
-					if(localStorage.key(i).includes("category"))	{
+					if(localStorage.key(i).includes("category_"))	{
 						var paragraph = document.createElement('button')
 						paragraph.classList.add("button_format")
 						paragraph.innerText = localStorage.getItem(localStorage.key(i));
@@ -156,8 +156,8 @@
 				</div>
 				<div class = "logo_pts">
 					WORK COMPLETED SO FAR
-					<div id = "work_so_far">
-					</div>
+					<div id = "work_so_far"></div>
+					<div id = "cancel_work">yup</div>
 				</div>
 			</div>
 			<!--sidebar-->

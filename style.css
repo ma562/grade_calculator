@@ -3,6 +3,7 @@ html, body	{
 	margin: 0;
 	font-family: 'Nova Flat';
 	background-color: black;
+
 }
 
 *{
@@ -94,6 +95,7 @@ body{
 	height:  100%;
 	width:  240px;
 	background: #18191a;
+	/*background: #1F3044;*/
 	padding:  6px 14px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -127,6 +129,17 @@ body{
 
 #addToDo:hover	{
 	cursor: pointer;
+}
+
+#cancel_work {
+	left: 350px;
+	color: white;
+	background-color: #18191a;
+	width: 15%;
+	height: 90%;
+	position: absolute;
+	top: 35px;
+	font-size: 30;
 }
 
 .input_vals {

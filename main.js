@@ -7,7 +7,7 @@ let inputMaxPts = document.getElementById('addPts');
 let inputDone = document.getElementById('addDonePts');
 
 addToDoButton.addEventListener('click', function(){
-	localStorage.setItem("category" + String(localStorage.length + 1), inputField.value);
+	localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
 	var paragraph = document.createElement('button')
 	paragraph.classList.add("button_format")
 	paragraph.innerText = inputField.value;
