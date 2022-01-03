@@ -61,111 +61,103 @@ function arrange_work_buttons_2()	{
 }
 
 addToDoButton.addEventListener('click', function(){
-	localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
-	var paragraph = document.createElement('button')
-	paragraph.classList.add("button_format")
-	paragraph.innerText = inputField.value;
+	//search for duplicate values first
+	var pass = true;
+	for(var x = 0; x < localStorage.length; x++)	{
+		if(localStorage.getItem(localStorage.key(x)) === inputField.value)	{
+			alert(localStorage.getItem(localStorage.key(x)) + " has already been entered!");
+			pass = false;
+		}
+	}
 
-	var cancel = document.createElement('button')
-	cancel.classList.add("cancel_button")
-	cancel.innerText = inputField.value;
-	
-	cancel.addEventListener('click', function(e)	{
-		if(e.target)	{
-			var title = document.createElement('p')
-			var answer = window.confirm("Are you sure you want to delete the category " + e.target.innerText + "?");
-			if(answer)	{
-				//delete the category
-				var dummy_storage = {};
-				Object.assign(dummy_storage, localStorage);
-				localStorage.clear()
-				var text = e.target.innerText;
-				for (const [key, value] of Object.entries(dummy_storage))	{
-					if((value !== text) && (key !== (text + "_weight")) && (key !== (text + "_num_assess")) && (key !== (text + "_maxPts")) && (key !== (text + "_donePts")))	{
-						localStorage.setItem(key, value);
+	if (pass == true)	{
+		localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
+		var paragraph = document.createElement('button')
+		paragraph.classList.add("button_format")
+		paragraph.innerText = inputField.value;
+
+		var cancel = document.createElement('button')
+		cancel.classList.add("cancel_button")
+		cancel.innerText = inputField.value;
+		
+		cancel.addEventListener('click', function(e)	{
+			if(e.target)	{
+				var title = document.createElement('p')
+				var answer = window.confirm("Are you sure you want to delete the category " + e.target.innerText + "?");
+				if(answer)	{
+					//delete the category
+					var dummy_storage = {};
+					Object.assign(dummy_storage, localStorage);
+					localStorage.clear()
+					var text = e.target.innerText;
+					for (const [key, value] of Object.entries(dummy_storage))	{
+						if((value !== text) && (key !== (text + "_weight")) && (key !== (text + "_num_assess")) && (key !== (text + "_maxPts")) && (key !== (text + "_donePts")))	{
+							localStorage.setItem(key, value);
+						}
 					}
-				}
-				console.log(localStorage)
-				document.getElementById("toDoContainer").innerHTML = '';
-				document.getElementById("del").innerHTML = '';
+					console.log(localStorage)
+					document.getElementById("toDoContainer").innerHTML = '';
+					document.getElementById("del").innerHTML = '';
 
-				document.getElementById("categoryContainer").innerHTML = 'Select a category';
-				document.getElementById("weight_info").innerHTML = "Weight: --"
-				document.getElementById("num_info").innerHTML = 'Number of assessments: --'
-				document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
-				document.getElementById("work_so_far").innerHTML = ''
-				reload();
-			}
-		}
-	})
-
-	del.appendChild(cancel);
-
-	paragraph.addEventListener('click', function(e){
-		if(e.target)	{
-			var title = document.createElement('p')
-			title.innerText = e.target.innerText;
-			document.getElementById("categoryContainer").innerHTML = '';
-			document.getElementById("categoryContainer").appendChild(title)
-
-			//SHOW WEIGHT
-			var weightage = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_weight")
-			var title = document.createElement('p')
-			document.getElementById("weight_info").innerHTML = '';
-			if(weightage != null)	{
-				title.innerText = "Weight: " + weightage
-			}
-			else {
-				title.innerText = "Weight: --"
-			}
-			document.getElementById("weight_info").appendChild(title);
-
-			//SHOW NUM ASSESSMENTS
-			var num_assessments = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_num_assess")
-			var title = document.createElement('p')
-			document.getElementById("num_info").innerHTML = '';
-			if(num_assessments != null)	{
-				title.innerText = "Number of assessments: " + num_assessments
-			}
-			else {
-				title.innerText = "Number of assessments: --"
-			}
-			document.getElementById("num_info").appendChild(title);
-			
-			//SHOW MAX PTS
-			var max_point_val = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_maxPts")
-			var title = document.createElement('p')
-			document.getElementById("max_points").innerHTML = '';
-			if(max_point_val != null)	{
-				title.innerText = "Max pts on each assessment: " + max_point_val
-			}
-			else {
-				title.innerText = "Max pts on each assessment: --"
-			}
-			document.getElementById("max_points").appendChild(title);
-
-			//SHOW WORK DONE SO FAR
-			/*
-			document.getElementById("work_so_far").innerHTML = '';
-			var completedPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
-			if(completedPts != null)	{
-				let val = document.getElementById("categoryContainer").innerText;
-				let max = localStorage.getItem(val + "_maxPts");
-
-				const myVal = completedPts.split(",");
-				var cat = document.getElementById("categoryContainer").innerText + " "
-				for (var i = 0; i < myVal.length; i++)	{
-					var title = document.createElement('button')
-					title.classList.add("work_button")
-					title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
-					document.getElementById("work_so_far").appendChild(title);
+					document.getElementById("categoryContainer").innerHTML = 'Select a category';
+					document.getElementById("weight_info").innerHTML = "Weight: --"
+					document.getElementById("num_info").innerHTML = 'Number of assessments: --'
+					document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
+					document.getElementById("work_so_far").innerHTML = ''
+					reload();
 				}
 			}
-			*/
-			arrange_work_buttons_2();
-		}
-	})
-	toDoContainer.appendChild(paragraph);
+		})
+		del.appendChild(cancel);
+
+		paragraph.addEventListener('click', function(e){
+			if(e.target)	{
+				var title = document.createElement('p')
+				title.innerText = e.target.innerText;
+				document.getElementById("categoryContainer").innerHTML = '';
+				document.getElementById("categoryContainer").appendChild(title)
+
+				//SHOW WEIGHT
+				var weightage = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_weight")
+				var title = document.createElement('p')
+				document.getElementById("weight_info").innerHTML = '';
+				if(weightage != null)	{
+					title.innerText = "Weight: " + weightage
+				}
+				else {
+					title.innerText = "Weight: --"
+				}
+				document.getElementById("weight_info").appendChild(title);
+
+				//SHOW NUM ASSESSMENTS
+				var num_assessments = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_num_assess")
+				var title = document.createElement('p')
+				document.getElementById("num_info").innerHTML = '';
+				if(num_assessments != null)	{
+					title.innerText = "Number of assessments: " + num_assessments
+				}
+				else {
+					title.innerText = "Number of assessments: --"
+				}
+				document.getElementById("num_info").appendChild(title);
+				
+				//SHOW MAX PTS
+				var max_point_val = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_maxPts")
+				var title = document.createElement('p')
+				document.getElementById("max_points").innerHTML = '';
+				if(max_point_val != null)	{
+					title.innerText = "Max pts on each assessment: " + max_point_val
+				}
+				else {
+					title.innerText = "Max pts on each assessment: --"
+				}
+				document.getElementById("max_points").appendChild(title);
+
+				arrange_work_buttons_2();
+			}
+		})
+		toDoContainer.appendChild(paragraph);
+	}
 	inputField.value = "";
 })
 
