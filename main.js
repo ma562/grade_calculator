@@ -8,54 +8,180 @@ let inputDone = document.getElementById('addDonePts');
 let calculate = document.getElementById('calc');
 
 calculate.addEventListener("click", function()	{
-	//iterate through the categories
+	var follow_through = true
+	var total_points = 0;
+	//ensure that all category requirements are filled out
 	for(var i = 0; i < localStorage.length; i++)	{
 		if(localStorage.key(i).includes("category_"))	{
-			//we found a category 
 			var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
-			var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
 			var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
 			var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
 			var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
 
-			//calculate completed_info
-			
-			if(pts_so_far == null)	{
-				var num_done = 0;
+			if((max_pts == null || weight_value == null || num_total == null) && follow_through)	{
+				follow_through = false
+				alert("Please make sure category weighting, number of assessments and max pts on each assignment are filled out for category " + cat_name)
 			}
 			else {
-				pts_so_far = pts_so_far.split(",");
-				var num_done = pts_so_far.length;
+				//add weights to determine total points
+				total_points += parseFloat(weight_value)
 			}
-			
-			var num_val = String(num_done) + " / " + String(num_total)
+		}
+	}
+	if(follow_through)	{
+		//iterate through the categories
+		
+		console.log(localStorage)
+		console.log(localStorage.length);
+		for(var i = 0; i < localStorage.length; i++)	{
+			if(localStorage.key(i).includes("category_"))	{
+				//we found a category 
+				var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
+				var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
+				var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
+				var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
+				var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
 
-			localStorage.setItem(cat_name + "_completed_info", num_val);
-
-			//calculate current_stand
-			var total_earned = 0;
-			var total_earned_possible = num_done * parseFloat(max_pts);
-			if(pts_so_far != null)	{
-				for(var j = 0; j < pts_so_far.length; j++)	{
-					total_earned += parseFloat(pts_so_far[j])
+				//calculate completed_info
+				
+				if(pts_so_far == null)	{
+					var num_done = 0;
 				}
-			}
-			if(num_done !== 0)	{
-				var current_stand = ((total_earned / total_earned_possible) * 100).toFixed(2);
-				var current_val = String(total_earned) + " / " + String(total_earned_possible) + " = " + String(current_stand) + " %" 
-			}
-			else {
-				var current_val = "-- / -- = --  %"
-			}
-			localStorage.setItem(cat_name + "_current_stand", current_val);
+				else {
+					pts_so_far = pts_so_far.split(",");
+					var num_done = pts_so_far.length;
+				}
+				
+				var num_val = String(num_done) + " / " + String(num_total)
 
-			//calculate final stand
-			var total_possible = parseInt(num_total) * parseFloat(max_pts);
-			var final_stand = ((total_earned / total_possible) * 100).toFixed(2);
-			var final_val = String(total_earned) + " / " + String(total_possible) + " = " + String(final_stand) + " %"
-			localStorage.setItem(cat_name + "_final_stand", final_val);
+				localStorage.setItem(cat_name + "_completed_info", num_val);
 
-			
+				//calculate current_stand
+				var total_earned = 0;
+				var total_earned_possible = num_done * parseFloat(max_pts);
+				if(pts_so_far != null)	{
+					for(var j = 0; j < pts_so_far.length; j++)	{
+						total_earned += parseFloat(pts_so_far[j])
+					}
+				}
+				if(num_done !== 0)	{
+					var current_stand = ((total_earned / total_earned_possible) * 100).toFixed(2);
+					var current_val = String(total_earned.toFixed(2)) + " / " + String(total_earned_possible) + " = " + String(current_stand) + " %" 
+				}
+				else {
+					var current_val = "-- / -- = --  %"
+				}
+				localStorage.setItem(cat_name + "_current_stand", current_val);
+
+				//calculate final stand
+				var total_possible = parseInt(num_total) * parseFloat(max_pts);
+				var final_stand = ((total_earned / total_possible) * 100).toFixed(2);
+				var final_val = String(total_earned.toFixed(2)) + " / " + String(total_possible) + " = " + String(final_stand) + " %"
+				localStorage.setItem(cat_name + "_final_stand", final_val);
+
+
+			}
+		}
+
+		//iterate through once again to establish percent weightings
+		for(var i = 0; i < localStorage.length; i++)	{
+			if(localStorage.key(i).includes("category_"))	{
+				var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
+				var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
+				var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
+				var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
+				var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
+
+				//calculate percent_weighting
+				var percent_weight = ((parseFloat(weight_value) / total_points) * 100).toFixed(2)
+
+				var percent_weight_val = String(percent_weight) + " %"
+				console.log(weight_value + "/" + String(total_points))
+				console.log(percent_weight_val)
+				localStorage.setItem(cat_name + "_percent_weighting", percent_weight_val)
+
+				//calculate opportunity_percent
+				var numerator = localStorage.getItem(cat_name + "_current_stand")
+				var denominator = localStorage.getItem(cat_name + "_final_stand")
+				numerator = numerator.split(" =")
+				numerator = numerator[0].split(" / ")
+				numerator = numerator[1]
+				denominator = denominator.split(" =")
+				denominator = denominator[0].split(" / ")
+				denominator = denominator[1]
+				if(numerator == "--")	{
+					numerator = 0;
+				}
+				numerator = parseFloat(numerator)
+				denominator = parseFloat(denominator)
+				var percent_opportunity = ((numerator / denominator) * percent_weight).toFixed(2)
+				var percent_oppor_val = String(percent_opportunity) + " %"
+				localStorage.setItem(cat_name + "_opportunity_percent", percent_oppor_val);
+
+				//calculate secured_percent
+				var secure_pts = localStorage.getItem(cat_name + "_final_stand")
+				secure_pts = secure_pts.split(" =")
+				secure_pts = secure_pts[0].split(" / ")
+				secure_pts = secure_pts[0]
+
+				var secure_percent = parseFloat(secure_pts) / denominator
+				secure_percent = (secure_percent * percent_weight).toFixed(2)
+				var secure_val = String(secure_percent) + " %"
+				localStorage.setItem(cat_name + "_secured_percent", secure_val);
+
+				//calculate permanent loss
+				var loss = (percent_opportunity - secure_percent).toFixed(2)
+				loss = String(loss) + " %"
+				localStorage.setItem(cat_name + "_loss_percent", loss);
+			}
+		}
+	}
+
+	let val = document.getElementById("categoryContainer").innerText;
+	if(val !== "Select a category")	{
+		var comp = localStorage.getItem(val + "_completed_info")
+		var curr = localStorage.getItem(val + "_current_stand")
+		var final = localStorage.getItem(val + "_final_stand")
+		var perc = localStorage.getItem(val + "_percent_weighting")
+		var oppor = localStorage.getItem(val + "_opportunity_percent")
+		var secur = localStorage.getItem(val + "_secured_percent")
+		var loss = localStorage.getItem(val + "_loss_percent")
+
+		if((comp != null) && (curr != null) && (final != null) && (perc != null) && (oppor != null) && (secur != null) && (loss != null)) {
+			var complete = document.createElement('p')
+			complete.innerText = "Total assessments completed: " + comp;
+			document.getElementById("completed_info").innerHTML = '';
+			document.getElementById("completed_info").appendChild(complete);
+
+			var current = document.createElement('p')
+			current.innerText = "Current standing: " + curr;
+			document.getElementById("current_stand").innerHTML = '';
+			document.getElementById("current_stand").appendChild(current);
+
+			var finale = document.createElement('p')
+			finale.innerText = "Final standing: " + final
+			document.getElementById("final_stand").innerHTML = '';
+			document.getElementById("final_stand").appendChild(finale);
+
+			var percent = document.createElement('p')
+			percent.innerText = "Overall percentage weighting: " + perc
+			document.getElementById("percent_weighting").innerHTML = '';
+			document.getElementById("percent_weighting").appendChild(percent);
+
+			var opportunity = document.createElement('p')
+			opportunity.innerText = "You had the opportunity to earn: " + oppor
+			document.getElementById("opportunity_percent").innerHTML = '';
+			document.getElementById("opportunity_percent").appendChild(opportunity);
+
+			var secured = document.createElement('p')
+			secured.innerText = "Secured percentage: " + secur
+			document.getElementById("secured_percent").innerHTML = '';
+			document.getElementById("secured_percent").appendChild(secured);
+
+			var lost = document.createElement('p')
+			lost.innerText = "Permanent loss: " + loss
+			document.getElementById("loss_percent").innerHTML = '';
+			document.getElementById("loss_percent").appendChild(lost);
 		}
 	}
 	console.log(localStorage);
@@ -146,7 +272,19 @@ addToDoButton.addEventListener('click', function(){
 					localStorage.clear()
 					var text = e.target.innerText;
 					for (const [key, value] of Object.entries(dummy_storage))	{
-						if((value !== text) && (key !== (text + "_weight")) && (key !== (text + "_num_assess")) && (key !== (text + "_maxPts")) && (key !== (text + "_donePts")))	{
+						var v1 = text + "_weight"
+						var v2 = text + "_num_assess"
+						var v3 = text + "_maxPts"
+						var v4 = text + "_donePts"
+						var v5 = text + "_completed_info"
+						var v6 = text + "_current_stand"
+						var v7 = text + "_final_stand"
+						var v8 = text + "_percent_weighting"
+						var v9 = text + "_opportunity_percent"
+						var v10 = text + "_secured_percent"
+						var v11 = text + "_loss_percent"
+
+						if((value !== text) && (key != v1) && (key != v2) && (key != v3) && (key != v4) && (key != v5) && (key != v6) && (key != v7) && (key != v8) && (key != v9) && (key != v10) && (key != v11))	{
 							localStorage.setItem(key, value);
 						}
 					}
@@ -160,6 +298,41 @@ addToDoButton.addEventListener('click', function(){
 					document.getElementById("num_info").innerHTML = 'Number of assessments: --'
 					document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
 					document.getElementById("work_so_far").innerHTML = ''
+
+					var complete = document.createElement('p')
+					complete.innerText = "Total assessments completed: -- / --"
+					document.getElementById("completed_info").innerHTML = '';
+					document.getElementById("completed_info").appendChild(complete);
+
+					var current = document.createElement('p')
+					current.innerText = "Current standing: -- / -- = --  %";
+					document.getElementById("current_stand").innerHTML = '';
+					document.getElementById("current_stand").appendChild(current);
+
+					var finale = document.createElement('p')
+					finale.innerText = "Final standing: -- / -- = -- %"
+					document.getElementById("final_stand").innerHTML = '';
+					document.getElementById("final_stand").appendChild(finale);
+
+					var percent = document.createElement('p')
+					percent.innerText = "Overall percentage weighting: -- %"
+					document.getElementById("percent_weighting").innerHTML = '';
+					document.getElementById("percent_weighting").appendChild(percent);
+
+					var opportunity = document.createElement('p')
+					opportunity.innerText = "You had the opportunity to earn: -- %"
+					document.getElementById("opportunity_percent").innerHTML = '';
+					document.getElementById("opportunity_percent").appendChild(opportunity);
+
+					var secured = document.createElement('p')
+					secured.innerText = "Secured percentage: -- %"
+					document.getElementById("secured_percent").innerHTML = '';
+					document.getElementById("secured_percent").appendChild(secured);
+
+					var lost = document.createElement('p')
+					lost.innerText = "Permanent loss: -- %"
+					document.getElementById("loss_percent").innerHTML = '';
+					document.getElementById("loss_percent").appendChild(lost);
 					reload();
 				}
 			}
@@ -215,6 +388,88 @@ addToDoButton.addEventListener('click', function(){
 				document.getElementById("max_points").appendChild(title);
 
 				arrange_work_buttons_2();
+
+				//display calc_info information
+				var comp = localStorage.getItem(e.target.innerText + "_completed_info")
+				var curr = localStorage.getItem(e.target.innerText + "_current_stand")
+				var final = localStorage.getItem(e.target.innerText + "_final_stand")
+				var perc = localStorage.getItem(e.target.innerText + "_percent_weighting")
+				var oppor = localStorage.getItem(e.target.innerText + "_opportunity_percent")
+				var secur = localStorage.getItem(e.target.innerText + "_secured_percent")
+				var loss = localStorage.getItem(e.target.innerText + "_loss_percent")
+
+				if((comp != null) && (curr != null) && (final != null) && (perc != null) && (oppor != null) && (secur != null) && (loss != null)) {
+					var complete = document.createElement('p')
+					complete.innerText = "Total assessments completed: " + comp;
+					document.getElementById("completed_info").innerHTML = '';
+					document.getElementById("completed_info").appendChild(complete);
+
+					var current = document.createElement('p')
+					current.innerText = "Current standing: " + curr;
+					document.getElementById("current_stand").innerHTML = '';
+					document.getElementById("current_stand").appendChild(current);
+
+					var finale = document.createElement('p')
+					finale.innerText = "Final standing: " + final
+					document.getElementById("final_stand").innerHTML = '';
+					document.getElementById("final_stand").appendChild(finale);
+
+					var percent = document.createElement('p')
+					percent.innerText = "Overall percentage weighting: " + perc
+					document.getElementById("percent_weighting").innerHTML = '';
+					document.getElementById("percent_weighting").appendChild(percent);
+
+					var opportunity = document.createElement('p')
+					opportunity.innerText = "You had the opportunity to earn: " + oppor
+					document.getElementById("opportunity_percent").innerHTML = '';
+					document.getElementById("opportunity_percent").appendChild(opportunity);
+
+					var secured = document.createElement('p')
+					secured.innerText = "Secured percentage: " + secur
+					document.getElementById("secured_percent").innerHTML = '';
+					document.getElementById("secured_percent").appendChild(secured);
+
+					var lost = document.createElement('p')
+					lost.innerText = "Permanent loss: " + loss
+					document.getElementById("loss_percent").innerHTML = '';
+					document.getElementById("loss_percent").appendChild(lost);
+				}
+				else {
+					var complete = document.createElement('p')
+					complete.innerText = "Total assessments completed: -- / --"
+					document.getElementById("completed_info").innerHTML = '';
+					document.getElementById("completed_info").appendChild(complete);
+
+					var current = document.createElement('p')
+					current.innerText = "Current standing: -- / -- = --  %";
+					document.getElementById("current_stand").innerHTML = '';
+					document.getElementById("current_stand").appendChild(current);
+
+					var finale = document.createElement('p')
+					finale.innerText = "Final standing: -- / -- = -- %"
+					document.getElementById("final_stand").innerHTML = '';
+					document.getElementById("final_stand").appendChild(finale);
+
+					var percent = document.createElement('p')
+					percent.innerText = "Overall percentage weighting: -- %"
+					document.getElementById("percent_weighting").innerHTML = '';
+					document.getElementById("percent_weighting").appendChild(percent);
+
+					var opportunity = document.createElement('p')
+					opportunity.innerText = "You had the opportunity to earn: -- %"
+					document.getElementById("opportunity_percent").innerHTML = '';
+					document.getElementById("opportunity_percent").appendChild(opportunity);
+
+					var secured = document.createElement('p')
+					secured.innerText = "Secured percentage: -- %"
+					document.getElementById("secured_percent").innerHTML = '';
+					document.getElementById("secured_percent").appendChild(secured);
+
+					var lost = document.createElement('p')
+					lost.innerText = "Permanent loss: -- %"
+					document.getElementById("loss_percent").innerHTML = '';
+					document.getElementById("loss_percent").appendChild(lost);
+				}
 			}
 		})
 		toDoContainer.appendChild(paragraph);

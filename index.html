@@ -83,10 +83,20 @@
 									Object.assign(dummy_storage, localStorage);
 									localStorage.clear()
 									var text = e.target.innerText;
-									var text_1 = text + "_weight"
 									for (const [key, value] of Object.entries(dummy_storage))	{
-										if((value !== text) && (key !== text + "_weight") && (key !== (text + "_num_assess")) && (key !== (text + "_maxPts")) && (key !== (text + "_donePts")))	{
-											console.log(value);
+										var v1 = text + "_weight"
+										var v2 = text + "_num_assess"
+										var v3 = text + "_maxPts"
+										var v4 = text + "_donePts"
+										var v5 = text + "_completed_info"
+										var v6 = text + "_current_stand"
+										var v7 = text + "_final_stand"
+										var v8 = text + "_percent_weighting"
+										var v9 = text + "_opportunity_percent"
+										var v10 = text + "_secured_percent"
+										var v11 = text + "_loss_percent"
+
+										if((value !== text) && (key != v1) && (key != v2) && (key != v3) && (key != v4) && (key != v5) && (key != v6) && (key != v7) && (key != v8) && (key != v9) && (key != v10) && (key != v11))	{
 											localStorage.setItem(key, value);
 										}
 									}
@@ -101,6 +111,41 @@
 									document.getElementById("num_info").innerHTML = 'Number of assessments: --'
 									document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
 									document.getElementById("work_so_far").innerHTML = ''
+
+									var complete = document.createElement('p')
+									complete.innerText = "Total assessments completed: -- / --"
+									document.getElementById("completed_info").innerHTML = '';
+									document.getElementById("completed_info").appendChild(complete);
+
+									var current = document.createElement('p')
+									current.innerText = "Current standing: -- / -- = --  %";
+									document.getElementById("current_stand").innerHTML = '';
+									document.getElementById("current_stand").appendChild(current);
+
+									var finale = document.createElement('p')
+									finale.innerText = "Final standing: -- / -- = -- %"
+									document.getElementById("final_stand").innerHTML = '';
+									document.getElementById("final_stand").appendChild(finale);
+
+									var percent = document.createElement('p')
+									percent.innerText = "Overall percentage weighting: -- %"
+									document.getElementById("percent_weighting").innerHTML = '';
+									document.getElementById("percent_weighting").appendChild(percent);
+
+									var opportunity = document.createElement('p')
+									opportunity.innerText = "You had the opportunity to earn: -- %"
+									document.getElementById("opportunity_percent").innerHTML = '';
+									document.getElementById("opportunity_percent").appendChild(opportunity);
+
+									var secured = document.createElement('p')
+									secured.innerText = "Secured percentage: -- %"
+									document.getElementById("secured_percent").innerHTML = '';
+									document.getElementById("secured_percent").appendChild(secured);
+
+									var lost = document.createElement('p')
+									lost.innerText = "Permanent loss: -- %"
+									document.getElementById("loss_percent").innerHTML = '';
+									document.getElementById("loss_percent").appendChild(lost);
 									reload();
 								}
 							}
@@ -158,6 +203,88 @@
 
 								//show work done so far
 								arrange_work_buttons();
+
+								//display calc_info information
+								var comp = localStorage.getItem(e.target.innerText + "_completed_info")
+								var curr = localStorage.getItem(e.target.innerText + "_current_stand")
+								var final = localStorage.getItem(e.target.innerText + "_final_stand")
+								var perc = localStorage.getItem(e.target.innerText + "_percent_weighting")
+								var oppor = localStorage.getItem(e.target.innerText + "_opportunity_percent")
+								var secur = localStorage.getItem(e.target.innerText + "_secured_percent")
+								var loss = localStorage.getItem(e.target.innerText + "_loss_percent")
+
+								if((comp != null)) {
+									var complete = document.createElement('p')
+									complete.innerText = "Total assessments completed: " + comp;
+									document.getElementById("completed_info").innerHTML = '';
+									document.getElementById("completed_info").appendChild(complete);
+
+									var current = document.createElement('p')
+									current.innerText = "Current standing: " + curr;
+									document.getElementById("current_stand").innerHTML = '';
+									document.getElementById("current_stand").appendChild(current);
+
+									var finale = document.createElement('p')
+									finale.innerText = "Final standing: " + final
+									document.getElementById("final_stand").innerHTML = '';
+									document.getElementById("final_stand").appendChild(finale);
+
+									var percent = document.createElement('p')
+									percent.innerText = "Overall percentage weighting: " + perc
+									document.getElementById("percent_weighting").innerHTML = '';
+									document.getElementById("percent_weighting").appendChild(percent);
+
+									var opportunity = document.createElement('p')
+									opportunity.innerText = "You had the opportunity to earn: " + oppor
+									document.getElementById("opportunity_percent").innerHTML = '';
+									document.getElementById("opportunity_percent").appendChild(opportunity);
+
+									var secured = document.createElement('p')
+									secured.innerText = "Secured percentage: " + secur
+									document.getElementById("secured_percent").innerHTML = '';
+									document.getElementById("secured_percent").appendChild(secured);
+
+									var lost = document.createElement('p')
+									lost.innerText = "Permanent loss: " + loss
+									document.getElementById("loss_percent").innerHTML = '';
+									document.getElementById("loss_percent").appendChild(lost);
+								}
+								else {
+									var complete = document.createElement('p')
+									complete.innerText = "Total assessments completed: -- / --"
+									document.getElementById("completed_info").innerHTML = '';
+									document.getElementById("completed_info").appendChild(complete);
+
+									var current = document.createElement('p')
+									current.innerText = "Current standing: -- / -- = --  %";
+									document.getElementById("current_stand").innerHTML = '';
+									document.getElementById("current_stand").appendChild(current);
+
+									var finale = document.createElement('p')
+									finale.innerText = "Final standing: -- / -- = -- %"
+									document.getElementById("final_stand").innerHTML = '';
+									document.getElementById("final_stand").appendChild(finale);
+
+									var percent = document.createElement('p')
+									percent.innerText = "Overall percentage weighting: -- %"
+									document.getElementById("percent_weighting").innerHTML = '';
+									document.getElementById("percent_weighting").appendChild(percent);
+
+									var opportunity = document.createElement('p')
+									opportunity.innerText = "You had the opportunity to earn: -- %"
+									document.getElementById("opportunity_percent").innerHTML = '';
+									document.getElementById("opportunity_percent").appendChild(opportunity);
+
+									var secured = document.createElement('p')
+									secured.innerText = "Secured percentage: -- %"
+									document.getElementById("secured_percent").innerHTML = '';
+									document.getElementById("secured_percent").appendChild(secured);
+
+									var lost = document.createElement('p')
+									lost.innerText = "Permanent loss: -- %"
+									document.getElementById("loss_percent").innerHTML = '';
+									document.getElementById("loss_percent").appendChild(lost);
+								}
 							}
 						})
 						toDoContainer.appendChild(paragraph);

@@ -40,7 +40,8 @@ body{
 }
 
 .info	{
-	font-size: 20;
+	font-size: 17.5;
+	padding: 2.5;
 	color: white;
 	margin: 10px;
 	top: 50px;
