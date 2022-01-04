@@ -5,6 +5,11 @@ let inputWeight = document.getElementById('addWeight');
 let inputNumAssess = document.getElementById('addNum');
 let inputMaxPts = document.getElementById('addPts');
 let inputDone = document.getElementById('addDonePts');
+let calculate = document.getElementById('calc');
+
+calculate.addEventListener("click", function()	{
+	alert("be patient you fool i'm still working on it")
+})
 
 
 function arrange_work_buttons_2()	{

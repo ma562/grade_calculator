@@ -98,6 +98,7 @@ body{
 	width: 30%;
 	height: 90%;
 	color: #FFCB05;
+	overflow: auto;
 }
 
 .categoryLetters	{
@@ -164,6 +165,7 @@ body{
 	border-radius: 10px;
 	position: relative;
 	background-color: black;
+	overflow: auto;
 }
 
 .sidebar {
