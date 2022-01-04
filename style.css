@@ -3,7 +3,6 @@ html, body	{
 	margin: 0;
 	font-family: 'Nova Flat';
 	background-color: black;
-
 }
 
 *{
@@ -16,7 +15,7 @@ body{
 	position:  relative;
 	min-height:  100vh;
 	width: 100%;
-	overflow:  hidden;
+	overflow:  auto;
 }
 
 .cancellation	{
@@ -60,8 +59,8 @@ body{
 
 #work_so_far	{
 	color: white;
-	width: 85%;
-	height: 50%;
+	width: 100%;
+	height: 25%;
 	background-color: black;
 	/*background-color: #FFCB05;*/
 	border-radius: 10px;
@@ -70,10 +69,10 @@ body{
 
 .work_button	{
 	font-family: 'Nova Flat';
-	font-size: 20;
+	font-size: 15;
 	color: white;
 	width: 100%;
-	height: 10%;
+	height: 15%;
 	background-color: black;
 	border-radius: 10px;
 }
@@ -89,7 +88,7 @@ body{
 }
 
 .category	{
-	font-size: 25;
+	font-size: 20;
 	border-radius: 25px;
 	left: 20%;
 	top: 5%;
@@ -139,14 +138,15 @@ body{
 }
 
 .stats {
-	top: 10%;
-	left: 52.5%;
-	width: 25%;
+	font-size: 17;
+	top: 6%;
+	/*left: 5%;*/
+	width: 100%;
 	height: 30%;
 	border-radius: 25px;
 	padding: 10;
 	position: relative;
-	background-color: white;
+	background-color: #18191a;
 }
 
 #categoryTitle	{
