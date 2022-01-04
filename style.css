@@ -91,7 +91,7 @@ body{
 .category	{
 	font-size: 25;
 	border-radius: 25px;
-	left: 300px;
+	left: 20%;
 	top: 5%;
 	position: absolute;
 	background-color: #18191a;
@@ -114,9 +114,9 @@ body{
 	background-color: white;
 	position: relative;
 	display: flex;
-	left: 800px;
+	left: 52.5%;
 	height: 15%;
-	width: 40%;
+	width: 45%;
 }
 
 
@@ -140,7 +140,7 @@ body{
 
 .stats {
 	top: 10%;
-	left: 800px;
+	left: 52.5%;
 	width: 25%;
 	height: 30%;
 	border-radius: 25px;

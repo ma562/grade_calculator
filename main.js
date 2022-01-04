@@ -8,7 +8,57 @@ let inputDone = document.getElementById('addDonePts');
 let calculate = document.getElementById('calc');
 
 calculate.addEventListener("click", function()	{
-	alert("be patient you fool i'm still working on it")
+	//iterate through the categories
+	for(var i = 0; i < localStorage.length; i++)	{
+		if(localStorage.key(i).includes("category_"))	{
+			//we found a category 
+			var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
+			var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
+			var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
+			var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
+			var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
+
+			//calculate completed_info
+			
+			if(pts_so_far == null)	{
+				var num_done = 0;
+			}
+			else {
+				pts_so_far = pts_so_far.split(",");
+				var num_done = pts_so_far.length;
+			}
+			
+			var num_val = String(num_done) + " / " + String(num_total)
+
+			localStorage.setItem(cat_name + "_completed_info", num_val);
+
+			//calculate current_stand
+			var total_earned = 0;
+			var total_earned_possible = num_done * parseFloat(max_pts);
+			if(pts_so_far != null)	{
+				for(var j = 0; j < pts_so_far.length; j++)	{
+					total_earned += parseFloat(pts_so_far[j])
+				}
+			}
+			if(num_done !== 0)	{
+				var current_stand = ((total_earned / total_earned_possible) * 100).toFixed(2);
+				var current_val = String(total_earned) + " / " + String(total_earned_possible) + " = " + String(current_stand) + " %" 
+			}
+			else {
+				var current_val = "-- / -- = --  %"
+			}
+			localStorage.setItem(cat_name + "_current_stand", current_val);
+
+			//calculate final stand
+			var total_possible = parseInt(num_total) * parseFloat(max_pts);
+			var final_stand = ((total_earned / total_possible) * 100).toFixed(2);
+			var final_val = String(total_earned) + " / " + String(total_possible) + " = " + String(final_stand) + " %"
+			localStorage.setItem(cat_name + "_final_stand", final_val);
+
+			
+		}
+	}
+	console.log(localStorage);
 })
 
 
