@@ -104,6 +104,40 @@ body{
 	margin: 10px;
 }
 
+.heading	{
+	top: 5%;
+	padding: 10;
+	border-radius: 25px;
+	font-size: 50;
+	color: darkblue;
+	background-color: white;
+	position: relative;
+	display: flex;
+	left: 800px;
+	height: 15%;
+	width: 40%;
+}
+
+
+.menu_button	{
+	width: 30%;
+	height: 40%;
+	top: -25%;
+	font-family: 'Nova Flat';
+	position: relative;
+	border-radius: 25px;
+	color: black;
+	background-color: white;
+	border-color: darkblue;
+}
+
+.menu_button:hover	{
+	cursor: pointer;
+	color: white;
+	background-color: black;
+}
+
+
 .sidebar {
 	position:  fixed;
 	top:  0;
@@ -206,5 +240,6 @@ body{
 	color: black;
 	background-color: #FFCB05;
 }
+
 
 
