@@ -137,6 +137,34 @@ body{
 	background-color: black;
 }
 
+.stats {
+	top: 10%;
+	left: 800px;
+	width: 25%;
+	height: 35%;
+	border-radius: 25px;
+	padding: 10;
+	position: relative;
+	background-color: white;
+}
+
+#categoryTitle	{
+	background-color: black;
+	color: white;
+	height: 10%;
+	border-radius: 10px;
+	padding: 5;
+}
+
+.calc_info	{
+	top: 3%;
+	height: 85%;
+	color: white;
+	padding: 10;
+	border-radius: 10px;
+	position: relative;
+	background-color: black;
+}
 
 .sidebar {
 	position:  fixed;

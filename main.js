@@ -100,6 +100,7 @@ addToDoButton.addEventListener('click', function(){
 					document.getElementById("del").innerHTML = '';
 
 					document.getElementById("categoryContainer").innerHTML = 'Select a category';
+					document.getElementById("categoryTitle").innerHTML = 'Select a category';
 					document.getElementById("weight_info").innerHTML = "Weight: --"
 					document.getElementById("num_info").innerHTML = 'Number of assessments: --'
 					document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
@@ -114,8 +115,13 @@ addToDoButton.addEventListener('click', function(){
 			if(e.target)	{
 				var title = document.createElement('p')
 				title.innerText = e.target.innerText;
+				var title2 = document.createElement('p')
+				title2.innerText = e.target.innerText + " information";
+
 				document.getElementById("categoryContainer").innerHTML = '';
 				document.getElementById("categoryContainer").appendChild(title)
+				document.getElementById("categoryTitle").innerHTML = '';
+				document.getElementById("categoryTitle").appendChild(title2)
 
 				//SHOW WEIGHT
 				var weightage = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_weight")
