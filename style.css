@@ -283,6 +283,23 @@ body{
 
 #addToDo:hover	{
 	cursor: pointer;
+	color: black;
+	background-color: #FFCB05;
+}
+
+#addCut	{
+	color: white;
+	left: 2%;
+	border-color: white;
+	border-radius: 25px;
+	background-color: black;
+	position: relative;
+	height: 7.5%;
+	width: 10%;
+}
+
+#addCut:hover {
+	cursor: pointer;
 }
 
 .input_vals {
