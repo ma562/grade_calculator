@@ -283,18 +283,15 @@ addToDoButton.addEventListener('click', function(){
 		}
 	}
 
-	if(!pass || !pass_through || !cont)	{
-		alert('DANGER')
-	}
-
 	if (pass && pass_through && cont)	{
 
 		//avoid replacing a previously reserved category key
-		var i = 1;
-		while(localStorage.getItem("category_" + String(localStorage.length + i)) != null)	{
+		var i = 0;
+		//search for a free position
+		while(localStorage.getItem("category_" + String(i)) != null)	{
 			i += 1;
 		}
-		localStorage.setItem("category_" + String(localStorage.length + i), inputField.value);
+		localStorage.setItem("category_" + String(i), inputField.value);
 
 		console.log(localStorage);
 		var paragraph = document.createElement('button')
