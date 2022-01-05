@@ -81,8 +81,6 @@ calculate.addEventListener("click", function()	{
 				var final_stand = ((total_earned / total_possible) * 100).toFixed(2);
 				var final_val = String(total_earned.toFixed(2)) + " / " + String(total_possible) + " = " + String(final_stand) + " %"
 				localStorage.setItem(cat_name + "_final_stand", final_val);
-
-
 			}
 		}
 
@@ -187,7 +185,6 @@ calculate.addEventListener("click", function()	{
 	}
 	console.log(localStorage);
 })
-
 
 function arrange_work_buttons_2()	{
 	//SHOW WORK DONE SO FAR
@@ -804,8 +801,7 @@ inputDone.addEventListener('click', function()	{
 						title.innerText = cat + String(i + 1) + ": " + myVal[i] + " / " + max;
 						document.getElementById("work_so_far").appendChild(title);
 					}
-				}
-					
+				}	
 			}
 		}
 		asses_done.value = "";	
@@ -820,7 +816,3 @@ asses_done.addEventListener("keyup", function(event)	{
 		asses_done.value = "";
 	}
 })
-
-
-
-
