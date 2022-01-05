@@ -201,14 +201,14 @@ body{
 	height:  50%;
 	width:  16%;
 	background: #18191a;
-	/*background: #1F3044;*/
+	border-radius: 0px 15px 15px 0px;
 	padding:  6px 14px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
 
 .sidebar .logo_content .logo {
-	font-size: 30;
+	font-size: 2vw;
 	display: flex;
 	color:  #FFF;
 	height: 5%;
