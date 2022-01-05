@@ -9,6 +9,12 @@ let calculate = document.getElementById('calc');
 
 calculate.addEventListener("click", function()	{
 	var follow_through = true
+
+	if(localStorage.length == 0)	{
+		follow_through = false
+		alert("Please create at least one category!")
+	}
+
 	var total_points = 0;
 	//ensure that all category requirements are filled out
 	for(var i = 0; i < localStorage.length; i++)	{
@@ -30,9 +36,6 @@ calculate.addEventListener("click", function()	{
 	}
 	if(follow_through)	{
 		//iterate through the categories
-		
-		console.log(localStorage)
-		console.log(localStorage.length);
 		for(var i = 0; i < localStorage.length; i++)	{
 			if(localStorage.key(i).includes("category_"))	{
 				//we found a category 
@@ -96,8 +99,6 @@ calculate.addEventListener("click", function()	{
 				var percent_weight = ((parseFloat(weight_value) / total_points) * 100).toFixed(2)
 
 				var percent_weight_val = String(percent_weight) + " %"
-				console.log(weight_value + "/" + String(total_points))
-				console.log(percent_weight_val)
 				localStorage.setItem(cat_name + "_percent_weighting", percent_weight_val)
 
 				//calculate opportunity_percent
@@ -242,6 +243,40 @@ function arrange_work_buttons_2()	{
 }
 
 addToDoButton.addEventListener('click', function(){
+	//ensure no additional spaces
+	var disp = false
+	var cont = true
+
+	if(inputField.value !== inputField.value.trim())	{
+		cont = false
+		alert("Please leave out additional spaces in the beginning or end of input")
+		disp = true
+	}
+
+	if(inputField.value.includes("  "))	{
+		if(!disp)	{
+			alert("Please avoid putting more than one space between words!")
+			disp = true
+		}
+		cont = false
+	}
+
+	//ensure no blanks
+	var string_check = inputField.value.split(" ")
+	var pass_through = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass_through == false)	{
+			pass_through = true
+		}
+	}
+
+	if(inputField.value == "")	{
+		if(!disp)	{
+			alert("Value cannot be blank")
+		}
+		pass_through = false
+	}
+
 	//search for duplicate values first
 	var pass = true;
 	for(var x = 0; x < localStorage.length; x++)	{
@@ -251,7 +286,7 @@ addToDoButton.addEventListener('click', function(){
 		}
 	}
 
-	if (pass == true)	{
+	if (pass && pass_through && cont)	{
 		localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
 		var paragraph = document.createElement('button')
 		paragraph.classList.add("button_format")
@@ -488,9 +523,31 @@ inputField.addEventListener("keyup", function(event)	{
 
 //WEIGHT VALUES
 inputWeight.addEventListener('click', function()	{
+	//ensure no additional spaces
+	var cont = true
+
+	if(weight.value !== weight.value.trim())	{
+		cont = false
+	}
+
+	if(weight.value.includes("  "))	{
+		cont = false
+	}
+
+	var string_check = weight.value.split(" ")
+	var pass = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass == false)	{
+			pass = true
+		}
+	}
+	
 	let val = document.getElementById("categoryContainer").innerText;
 	if(val === "Select a category")	{
 		alert("Please select a category")
+	}
+	else if(!cont)	{
+		alert("Please leave out additional spaces in the beginning or end of input")
 	}
 	else if (localStorage.getItem(document.getElementById("categoryContainer").innerText + "_weight") != null)	{
 		alert("Weight already entered!")
@@ -498,11 +555,17 @@ inputWeight.addEventListener('click', function()	{
 	else if (isNaN(weight.value))	{
 		alert("Value entered must be a number!")
 	}
+	else if (!pass)	{
+		alert("Value cannot be blank!")
+	}
 	else if(weight.value === "")	{
 		alert("Value cannot be blank!")
 	}
 	else if (parseFloat(weight.value) < 0)	{
 		alert("Weight cannot be negative!")
+	}
+	else if (parseFloat(weight.value) == 0)	{
+		alert("Weight cannot be 0")
 	}
 	else {
 		localStorage.setItem(document.getElementById("categoryContainer").innerText + "_weight", weight.value);
@@ -526,9 +589,31 @@ weight.addEventListener("keyup", function(event)	{
 
 //NUMBER OF ASSESSMENT VALUES
 inputNumAssess.addEventListener('click', function()	{
+	//ensure no additional spaces
+	var cont = true
+
+	if(num_asses.value !== num_asses.value.trim())	{
+		cont = false
+	}
+
+	if(num_asses.value.includes("  "))	{
+		cont = false
+	}
+
+	var string_check = num_asses.value.split(" ")
+	var pass = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass == false)	{
+			pass = true
+		}
+	}
+
 	let val = document.getElementById("categoryContainer").innerText;
 	if(val === "Select a category")	{
 		alert("Please select a category")
+	}
+	else if (!cont)	{
+		alert("Please leave out additional spaces in the beginning or end of input")
 	}
 	else if (localStorage.getItem(document.getElementById("categoryContainer").innerText + "_num_assess") != null)	{
 		alert("Number of assesments already entered!")
@@ -536,8 +621,14 @@ inputNumAssess.addEventListener('click', function()	{
 	else if (!Number.isInteger(Number(num_asses.value)))	{
 		alert("Value must be an integer!")
 	}
-	else if (num_asses.value < 0)	{
+	else if (!pass)	{
+		alert("Value cannot be blank!")
+	}
+	else if (parseInt(num_asses.value) < 0)	{
 		alert("Number of assessments cannot be negative!")
+	}
+	else if (parseInt(num_asses.value) == 0)	{
+		alert("Number of assessments cannot be 0")
 	}
 	else {
 		localStorage.setItem(document.getElementById("categoryContainer").innerText + "_num_assess", num_asses.value);
@@ -559,9 +650,31 @@ num_asses.addEventListener("keyup", function(event)	{
 
 //MAX PTS VALUES
 inputMaxPts.addEventListener('click', function()	{
+	//ensure no additional spaces
+	var cont = true
+
+	if(max_pts.value !== max_pts.value.trim())	{
+		cont = false
+	}
+
+	if(max_pts.value.includes("  "))	{
+		cont = false
+	}
+
+	var string_check = max_pts.value.split(" ")
+	var pass = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass == false)	{
+			pass = true
+		}
+	}
+
 	let val = document.getElementById("categoryContainer").innerText;
 	if(val === "Select a category")	{
 		alert("Please select a category")
+	}
+	else if(!cont)	{
+		alert("Please leave out additional spaces in the beginning or end of input")
 	}
 	else if (localStorage.getItem(document.getElementById("categoryContainer").innerText + "_maxPts") != null)	{
 		alert("Max pts already entered!")
@@ -569,11 +682,17 @@ inputMaxPts.addEventListener('click', function()	{
 	else if (isNaN(max_pts.value))	{
 		alert("Value entered must be a number!")
 	}
+	else if (!pass)	{
+		alert("Value cannot be blank!")
+	}
 	else if(max_pts.value === "")	{
 		alert("Value cannot be blank!")
 	}
 	else if (parseFloat(max_pts.value) < 0)	{
 		alert("Max pts cannot be negative!")
+	}
+	else if (parseFloat(max_pts.value) == 0)	{
+		alert("Max pts cannot be 0")
 	}
 	else {
 		localStorage.setItem(document.getElementById("categoryContainer").innerText + "_maxPts", max_pts.value);
@@ -595,12 +714,34 @@ max_pts.addEventListener("keyup", function(event)	{
 
 //COMPLETED ASSIGNMENT VALUES
 inputDone.addEventListener('click', function()	{
+	//ensure no additional spaces
+	var cont = true
+
+	if(asses_done.value !== asses_done.value.trim())	{
+		cont = false
+	}
+
+	if(asses_done.value.includes("  "))	{
+		cont = false
+	}
+
+	var string_check = asses_done.value.split(" ")
+	var pass = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass == false)	{
+			pass = true
+		}
+	}
+
 	let val = document.getElementById("categoryContainer").innerText;
 	let weight_val = localStorage.getItem(val + "_weight");
 	let num = localStorage.getItem(val + "_num_assess");
 	let max = localStorage.getItem(val + "_maxPts");
 	if(val === "Select a category")	{
 		alert("Please select a category")
+	}
+	else if (!cont)	{
+		alert("Please leave out additional spaces in the beginning or end of input")
 	}
 	else if (weight_val == null)	{
 		alert("Please enter category weighting")
@@ -610,6 +751,9 @@ inputDone.addEventListener('click', function()	{
 	}
 	else if (max == null)	{
 		alert("Please enter max pts on each assessment")
+	}
+	else if (!pass)	{
+		alert("Value cannot be blank!")
 	}
 	else {
 		const myPts = localStorage.getItem(document.getElementById("categoryContainer").innerText + "_donePts")
