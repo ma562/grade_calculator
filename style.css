@@ -41,13 +41,13 @@ body{
 }
 
 .to-dos {
-	top: 10%;
+	top: 30px;
+	position: relative;
 }
 
 .cancellation	{
 	left: 82.5%;
-	top: 10%;
-	height: 90%;
+	top: 90px;
 	width: 21.5%;
 	position: absolute;
 }
@@ -198,7 +198,7 @@ body{
 	position:  fixed;
 	top:  0;
 	left: 0;
-	height:  100%;
+	height:  50%;
 	width:  16%;
 	background: #18191a;
 	/*background: #1F3044;*/
@@ -216,12 +216,13 @@ body{
 	align-items: center;
 }
 
-
 #inputField	{
+	top: 12.5px;
+	position: relative;
 	font-size: 15;
 	width: 80%;
 	border-radius: 5px;
-	height: 4%;
+	height: 8%;
 }
 
 #addToDo	{
@@ -229,6 +230,8 @@ body{
 	border-color: white;
 	border-radius: 25px;
 	background-color: #000000;
+	position: relative;
+	top: 12.5px;
 	height: 35;
 	width: 25;
 }
@@ -240,6 +243,8 @@ body{
 .input_vals {
 	width: 50px;
 }
+
+
 
 .button_format	{
 	align-items:  center;
