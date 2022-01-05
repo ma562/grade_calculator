@@ -283,8 +283,20 @@ addToDoButton.addEventListener('click', function(){
 		}
 	}
 
+	if(!pass || !pass_through || !cont)	{
+		alert('DANGER')
+	}
+
 	if (pass && pass_through && cont)	{
-		localStorage.setItem("category_" + String(localStorage.length + 1), inputField.value);
+
+		//avoid replacing a previously reserved category key
+		var i = 1;
+		while(localStorage.getItem("category_" + String(localStorage.length + i)) != null)	{
+			i += 1;
+		}
+		localStorage.setItem("category_" + String(localStorage.length + i), inputField.value);
+
+		console.log(localStorage);
 		var paragraph = document.createElement('button')
 		paragraph.classList.add("button_format")
 		paragraph.innerText = inputField.value;
