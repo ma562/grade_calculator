@@ -9,7 +9,31 @@ let calculate = document.getElementById('calc');
 let inputCutOff = document.getElementById('addCut')
 
 inputCutOff.addEventListener("click", function()	{
-	//grade is letter.value and cut_off is cut_off.value
+	const oldCutOffs = localStorage.getItem("cut_off_values");
+	if(oldCutOffs !== null)	{
+		var the_cutOff_keys = oldCutOffs.split(",");
+		var the_cuts = ""
+		var the_grades = ""
+		for(var i = 0; i < the_cutOff_keys.length; i++)	{
+			var the_set_item = the_cutOff_keys[i].split("_");
+			if(i == 0) {
+				the_cuts += the_set_item[1]
+				the_grades += the_set_item[0]
+			}
+			else {
+				the_cuts += "," + the_set_item[1]
+				the_grades += "," + the_set_item[0]
+			}
+		}
+		//sort the values
+		var the_cut_vals = the_cuts.split(",")
+		var the_grade_vals = the_grades.split(",")
+	}
+	else {
+		the_cut_vals = null
+		the_grade_vals = null
+	}
+
 	//validate grade first
 	var disp = false
 	var cont = true
@@ -41,6 +65,17 @@ inputCutOff.addEventListener("click", function()	{
 		}
 		pass_through = false
 	}
+
+	if(the_grade_vals !== null)	{
+		if(the_grade_vals.includes(letter.value))	{
+			if(!disp)	{
+				alert("The grade " + letter.value + " has already been entered")
+			}
+			pass_through = false
+			disp = true
+		}
+	}
+
 	if (pass_through && cont) {
 		var grade_pass = true
 	}
@@ -49,7 +84,7 @@ inputCutOff.addEventListener("click", function()	{
 	}
 
 	//validate cut off value
-	// disp = false
+	
 	cont = true
 	if((cut_off.value) !== ((cut_off.value).trim()))	{
 		cont = false
@@ -94,6 +129,17 @@ inputCutOff.addEventListener("click", function()	{
 			pass_through = false
 		}
 	}
+
+	if(the_cut_vals !== null)	{
+		if(the_cut_vals.includes(cut_off.value))	{
+			if(!disp)	{
+				alert("The cut off value " + cut_off.value + " has already been entered")
+			}
+			pass_through = false
+			disp = true
+		}
+	}
+
 	if (pass_through && cont) {
 		var cutoff_pass = true
 	}
