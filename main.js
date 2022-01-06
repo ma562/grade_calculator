@@ -220,6 +220,7 @@ inputCutOff.addEventListener("click", function()	{
 				document.getElementById("cut_offs_container").appendChild(title);
 			}
 		}
+		arrange_grade_buttons_2()
 		console.log(localStorage)
 	}
 	
@@ -421,6 +422,53 @@ calculate.addEventListener("click", function()	{
 	}
 	console.log(localStorage);
 })
+
+function arrange_grade_buttons_2()	{
+	//SHOW CUT OFFS SO FAR
+	document.getElementById("cut_offs_container").innerHTML = ""
+	var off_cut = localStorage.getItem("cut_off_values")
+	if(off_cut === "")	{
+		off_cut = null;
+		localStorage.removeItem("cut_off_values")
+	}
+	if(off_cut != null)	{
+		var cut_off_nums = off_cut.split(",")
+		for(var i = 0; i < cut_off_nums.length; i++)	{
+			var pairs = cut_off_nums[i].split("_")
+			var title = document.createElement("button")
+			title.classList.add("cut_off_button")
+			title.innerText = pairs[0] + " >= " + pairs[1]
+
+			title.addEventListener('click', function(e)	{
+				if(e.target)	{
+					var vals_split = e.target.innerText.split(" >= ")
+					var answer = window.confirm("Are you sure you want to delete the cut off " + e.target.innerText)
+					var dummy_vals = off_cut.split(",")
+					if(answer)	{
+						//temporarily remove the item list
+						localStorage.removeItem("cut_off_values")
+						var new_values = ""
+						for(var i = 0; i < dummy_vals.length; i++)	{
+							var check_grade = dummy_vals[i].split("_")
+							if(check_grade[0] !== vals_split[0] && check_grade[1] !== vals_split[1])	{
+								if(new_values === "")	{
+									new_values = dummy_vals[i]
+								}
+								else {
+									new_values += "," + dummy_vals[i]
+								}
+							}
+						}
+						localStorage.setItem("cut_off_values", new_values)
+						console.log(localStorage)
+						arrange_grade_buttons_2()
+					}
+				}
+			})
+			document.getElementById("cut_offs_container").appendChild(title)
+		}
+	}
+}
 
 function arrange_work_buttons_2()	{
 	//SHOW WORK DONE SO FAR
