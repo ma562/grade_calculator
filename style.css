@@ -201,8 +201,8 @@ body{
 	left: 0;
 	height:  50%;
 	width:  16%;
-	/*background: #18191a;*/
-	background: white;
+	background: #18191a;
+	/*background: white;*/
 	border-radius: 0px 15px 15px 0px;
 	padding:  6px 14px;
 	overflow-y: auto;
@@ -212,7 +212,7 @@ body{
 .sidebar .logo_content .logo {
 	font-size: 2vw;
 	display: flex;
-	color:  darkblue;
+	color:  white;
 	height: 5%;
 	width: 100%;
 	align-items: center;
@@ -227,9 +227,8 @@ body{
 	width: 16%;
 	height: 50%;
 	left: 0;
-	/*background-color: #FFCB05;*/
-	color: darkblue;
-	background-color: white;
+	background-color: #FFCB05;
+	color: black;
 }
 
 .cut_offs {
@@ -278,9 +277,9 @@ body{
 	width: 80%;
 	border-radius: 5px;
 	height: 8%;
-	background-color: #18191a;
+/*	background-color: #18191a;
 	color: white;
-	border-color: black;
+	border-color: black;*/
 }
 
 #addToDo	{
@@ -330,7 +329,7 @@ body{
 	border-radius: 25px;
 	font-size: 12;
 	color: white;
-	border-color: black;
+	border-color: white;
 	text-align: center;
 	/*top: 10;*/
 	margin: 10;
@@ -377,6 +376,8 @@ body{
 
 .button_format:hover	{
 	cursor: pointer;
-	color: black;
-	background-color: #FFCB05;
+	color: darkblue;
+	/*background-color: #FFCB05;*/
+	background-color: white;
+	border-color: #FFCB05;
 }

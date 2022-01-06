@@ -6,6 +6,183 @@ let inputNumAssess = document.getElementById('addNum');
 let inputMaxPts = document.getElementById('addPts');
 let inputDone = document.getElementById('addDonePts');
 let calculate = document.getElementById('calc');
+let inputCutOff = document.getElementById('addCut')
+
+inputCutOff.addEventListener("click", function()	{
+	//grade is letter.value and cut_off is cut_off.value
+	//validate grade first
+	var disp = false
+	var cont = true
+
+	if(letter.value !== letter.value.trim())	{
+		cont = false
+		alert("Please leave out additional spaces in the beginning or end of grade")
+		disp = true
+	}
+	if(letter.value.includes("  "))	{
+		if(!disp)	{
+			alert("Please avoid putting more than one space between grade")
+			disp = true
+		}
+		cont = false
+	}
+	//ensure no blanks
+	var string_check = letter.value.split(" ")
+	var pass_through = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass_through == false)	{
+			pass_through = true
+		}
+	}
+	if(letter.value == "")	{
+		if(!disp)	{
+			alert("Grade cannot be blank")
+			disp = true
+		}
+		pass_through = false
+	}
+	if (pass_through && cont) {
+		var grade_pass = true
+	}
+	else {
+		var grade_pass = false
+	}
+
+	//validate cut off value
+	// disp = false
+	cont = true
+	if((cut_off.value) !== ((cut_off.value).trim()))	{
+		cont = false
+		alert("Please leave out additional spaces in the beginning or end of cutoff")
+		disp = true
+	}
+	if(cut_off.value.includes("  "))	{
+		if(!disp)	{
+			alert("Please avoid putting more than one space between cutoff")
+			disp = true
+		}
+		cont = false
+	}
+	//ensure no blanks
+	var string_check = cut_off.value.split(" ")
+	pass_through = false
+	for(var x = 0; x < string_check.length; x++)	{
+		if(string_check[x] != "" && pass_through == false)	{
+			pass_through = true
+		}
+	}
+	if(cut_off.value == "")	{
+		if(!disp)	{
+			alert("Cut off cannot be blank")
+			disp = true
+		}
+		pass_through = false
+	}
+
+	if (isNaN(cut_off.value))	{
+		if(!disp) {
+			alert("Cut off must be a number!")
+			disp = true
+		}	
+		pass_through = false
+	}
+
+	if(pass_through && cont)	{
+		if((parseFloat(cut_off.value) < 0) || (parseFloat(cut_off.value) > 100)) {
+			alert("Cut off must be between 0 and 100");
+			disp = true
+			pass_through = false
+		}
+	}
+	if (pass_through && cont) {
+		var cutoff_pass = true
+	}
+	else {
+		var cutoff_pass = false
+	}
+
+	if(grade_pass && cutoff_pass) {
+		const myCutOffs = localStorage.getItem("cut_off_values");
+		if(myCutOffs == null)	{
+			//creating the first cut off
+			var cut_off_val = String(letter.value) + "_" + String(cut_off.value)
+			localStorage.setItem("cut_off_values", cut_off_val);
+		}
+		else {
+			
+			//previous cut offs already exist
+			var cutOff_keys = myCutOffs.split(",");
+			var cuts = ""
+			var grades = ""
+			for(var i = 0; i < cutOff_keys.length; i++)	{
+				var set_item = cutOff_keys[i].split("_");
+				if(i == 0) {
+					cuts += set_item[1]
+					grades += set_item[0]
+				}
+				else {
+					cuts += "," + set_item[1]
+					grades += "," + set_item[0]
+				}
+			}
+
+			//sort the values
+			var cut_vals = cuts.split(",")
+			var grade_vals = grades.split(",")
+			for(var i = 0; i < cut_vals.length; i++)	{
+				cut_vals[i] = parseFloat(cut_vals[i])
+			}
+
+			var index = 0;
+			var found = false
+			while(index < cut_vals.length && !found)	{
+				if(parseFloat(cut_off.value) < cut_vals[index])	{
+					//keep going
+					index += 1;
+				}
+				else {
+					found = true
+				}
+			}
+
+			cut_vals.splice(index, 0, cut_off.value)
+			grade_vals.splice(index, 0, letter.value)
+			
+			var submission_string = ""
+
+			for(var i = 0; i < cut_vals.length; i++)	{
+				if(i == 0)	{
+					submission_string = String(grade_vals[i]) + "_" + String(cut_vals[i])
+				}
+				else {
+					submission_string += "," + String(grade_vals[i]) + "_" + String(cut_vals[i])
+				}
+			}
+			localStorage.setItem("cut_off_values", submission_string);
+		}
+		console.log(localStorage)
+
+	}
+	
+})
+
+letter.addEventListener("keyup", function(event)	{
+	event.preventDefault();
+	if(event.keyCode === 13)	{
+		inputCutOff.click();
+		letter.value = "";
+		cut_off.value = "";
+	}
+})
+
+cut_off.addEventListener("keyup", function(event)	{
+	event.preventDefault();
+	if(event.keyCode === 13)	{
+		inputCutOff.click();
+		cut_off.value = "";
+		letter.value = "";
+	}
+})
 
 calculate.addEventListener("click", function()	{
 	var follow_through = true
