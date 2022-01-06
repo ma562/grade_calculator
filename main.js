@@ -149,13 +149,18 @@ inputCutOff.addEventListener("click", function()	{
 
 	if(grade_pass && cutoff_pass) {
 		const myCutOffs = localStorage.getItem("cut_off_values");
+		document.getElementById("cut_offs_container").innerHTML = ""
+
 		if(myCutOffs == null)	{
 			//creating the first cut off
 			var cut_off_val = String(letter.value) + "_" + String(cut_off.value)
 			localStorage.setItem("cut_off_values", cut_off_val);
+			var title = document.createElement('button')
+			title.classList.add("cut_off_button")
+			title.innerText = letter.value + " >= " + cut_off.value
+			document.getElementById("cut_offs_container").appendChild(title);
 		}
 		else {
-			
 			//previous cut offs already exist
 			var cutOff_keys = myCutOffs.split(",");
 			var cuts = ""
@@ -205,6 +210,15 @@ inputCutOff.addEventListener("click", function()	{
 				}
 			}
 			localStorage.setItem("cut_off_values", submission_string);
+
+			var append_vals = submission_string.split(",")
+			for(var i = 0; i < append_vals.length; i++)	{
+				var pairs = append_vals[i].split("_")
+				var title = document.createElement('button')
+				title.classList.add("cut_off_button")
+				title.innerText = pairs[0] + " >= " + pairs[1]
+				document.getElementById("cut_offs_container").appendChild(title);
+			}
 		}
 		console.log(localStorage)
 
