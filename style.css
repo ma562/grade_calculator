@@ -83,7 +83,7 @@ body{
 	font-size: 1.1vw;
 	padding: 2.5;
 	color: white;
-	width: 40%;
+	width: 45%;
 	height: 30%;
 	float: left;
 	display: inline-block;
@@ -91,12 +91,18 @@ body{
 
 #required {
 	height: 30%;
-	width: 40%;
+	width: 45%;
 	font-size: 1.1vw;
 	padding: 2.5;
 	float: right;
 	background-color: black;
 	display: inline-block;
+}
+
+#amount_info	{
+	align-items: center;
+	width: 100%;
+	background-color: green;
 }
 
 .logo_pts	{
