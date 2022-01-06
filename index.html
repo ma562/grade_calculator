@@ -62,6 +62,19 @@
 
 
 			function reload()	{
+				//show cut offs
+				var cut_off_strings = localStorage.getItem("cut_off_values");
+				if(cut_off_strings !== null)	{
+					var cut_off_nums = cut_off_strings.split(",")
+					for(var i = 0; i < cut_off_nums.length; i++)	{
+						var pairs = cut_off_nums[i].split("_")
+						var title = document.createElement("button")
+						title.classList.add("cut_off_button")
+						title.innerText = pairs[0] + " >= " + pairs[1]
+						document.getElementById("cut_offs_container").appendChild(title)
+					}
+				}
+
 				for(var i = 0; i < localStorage.length; i++)	{
 					if(localStorage.key(i).includes("category_"))	{
 						var paragraph = document.createElement('button')

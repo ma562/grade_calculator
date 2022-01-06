@@ -221,7 +221,6 @@ inputCutOff.addEventListener("click", function()	{
 			}
 		}
 		console.log(localStorage)
-
 	}
 	
 })
