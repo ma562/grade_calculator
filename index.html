@@ -65,6 +65,7 @@
 				//show cut offs
 				var cut_off_strings = localStorage.getItem("cut_off_values");
 				if(cut_off_strings !== null)	{
+					document.getElementById("cut_offs_container").innerHTML = ""
 					var cut_off_nums = cut_off_strings.split(",")
 					for(var i = 0; i < cut_off_nums.length; i++)	{
 						var pairs = cut_off_nums[i].split("_")
