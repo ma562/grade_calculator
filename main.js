@@ -319,34 +319,54 @@ function analyze_grade()	{
 	//update info box
 	document.getElementById("amount_info").innerHTML = ""
 
-	cuts_off = cuts_off.split(",")
-	for(var i = 0; i < cuts_off.length; i++)	{
-		var letter_val = cuts_off[i].split("_")[0]
-		var cut_val = parseFloat(cuts_off[i].split("_")[1])
-		var x = (((cut_val - current_status) / percent_controllable) * 100).toFixed(2)
-		//come back here
-		var x_val = document.createElement('p')
-		x_val.innerText = String(x) + " %"
-		x_val.classList.add("cut_off_percent")
-		document.getElementById("amount_info").appendChild(x_val)
-		var y_val = document.createElement('p')
-		y_val.innerText = String(letter_val)
-		y_val.classList.add("earn_the_grade")
-		document.getElementById("amount_info").appendChild(y_val)
-		if(virtual_amounts == "")	{
-			virtual_amounts = String(letter_val) + "_" + String(x)
+	if(percent_controllable < 0.0001)	{
+		cuts_off = cuts_off.split(",")
+		for(var i = 0; i < cuts_off.length; i++)	{
+			var letter_val = cuts_off[i].split("_")[0]
+			var x_val = document.createElement('p')
+			x_val.innerText = "COURSE COMPLETE"
+			x_val.classList.add("cut_off_percent")
+			document.getElementById("amount_info").appendChild(x_val)
+			var y_val = document.createElement('p')
+			y_val.innerText = String(letter_val)
+			y_val.classList.add("earn_the_grade")
+			document.getElementById("amount_info").appendChild(y_val)
+			if(virtual_amounts == "")	{
+				virtual_amounts = String(letter_val) + "_" + String(x)
+			}
+			else {
+				virtual_amounts += "," + String(letter_val) + "_" + String(x)
+			}
 		}
-		else {
-			virtual_amounts += "," + String(letter_val) + "_" + String(x)
+		localStorage.setItem("cut_off_borders", virtual_amounts)
+	}
+	else {
+		cuts_off = cuts_off.split(",")
+		for(var i = 0; i < cuts_off.length; i++)	{
+			var letter_val = cuts_off[i].split("_")[0]
+			var cut_val = parseFloat(cuts_off[i].split("_")[1])
+			var x = (((cut_val - current_status) / percent_controllable) * 100).toFixed(2)
+			//come back here
+			var x_val = document.createElement('p')
+			x_val.innerText = String(x) + " %"
+			x_val.classList.add("cut_off_percent")
+			document.getElementById("amount_info").appendChild(x_val)
+			var y_val = document.createElement('p')
+			y_val.innerText = String(letter_val)
+			y_val.classList.add("earn_the_grade")
+			document.getElementById("amount_info").appendChild(y_val)
+			if(virtual_amounts == "")	{
+				virtual_amounts = String(letter_val) + "_" + String(x)
+			}
+			else {
+				virtual_amounts += "," + String(letter_val) + "_" + String(x)
+			}
 		}
+
+		localStorage.setItem("cut_off_borders", virtual_amounts)
 	}
 
-	localStorage.setItem("cut_off_borders", virtual_amounts)
-
 	
-	
-
-
 }
 
 calculate.addEventListener("click", function()	{

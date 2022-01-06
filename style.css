@@ -122,6 +122,12 @@ body{
 	color: #FFCB05;
 }
 
+.complete {
+	text-align: center;
+	color: #FFCB05;
+	font-size: 2vw;
+}
+
 #amount_info	{
 	align-items: center;
 	width: 100%;
