@@ -268,6 +268,9 @@ function analyze_grade()	{
 	localStorage.setItem("grade_permanent_loss", lost)
 
 	cur_progress = ((current_earnings / opportunity_earn) * 100).toFixed(2)
+	if(isNaN(cur_progress))	{
+		cur_progress = "--"
+	}
 	localStorage.setItem("grade_current_progress", cur_progress + " %")
 
 	var percent_controllable = 100 - opportunity_earn;
@@ -303,6 +306,34 @@ function analyze_grade()	{
 	var highest_val = localStorage.getItem("grade_highest_final")
 	highest.innerText = "Highest possible final score: " + highest_val 
 	document.getElementById("highest_final").appendChild(highest)
+
+	//layout the cutoffs
+	var cuts_off = localStorage.getItem("cut_off_values")
+	var virtual_amounts = ""
+
+	var current_status = parseFloat(localStorage.getItem("grade_current_earnings").split(" ")[0]);
+	//percent controllable * x% + current_status = cutoff
+	//percent controllable * x% = cutoff - current_status
+	//x% = (cutoff - current_status) / percent controllable //multiply by 100
+
+
+	cuts_off = cuts_off.split(",")
+	for(var i = 0; i < cuts_off.length; i++)	{
+		var letter_val = cuts_off[i].split("_")[0]
+		var cut_val = parseFloat(cuts_off[i].split("_")[1])
+		var x = (((cut_val - current_status) / percent_controllable) * 100).toFixed(2)
+		if(virtual_amounts == "")	{
+			virtual_amounts = String(letter_val) + "_" + String(x)
+		}
+		else {
+			virtual_amounts += "," + String(letter_val) + "_" + String(x)
+		}
+	}
+
+	localStorage.setItem("cut_off_borders", virtual_amounts)
+
+
+
 }
 
 calculate.addEventListener("click", function()	{
@@ -496,7 +527,7 @@ calculate.addEventListener("click", function()	{
 			analyze_grade()
 		}
 		else {
-			var answer = window.confirm("Would you like to use the default cut offs")
+			var answer = window.confirm("Would you like to use the default cut offs?")
 			if(answer)	{
 				var defaultCutoffs = "A+_97,A_93,A-_90,B+_87,B_83,B-_80,C+_77,C_73,C-_70,D+_67,D_63,D-_60"
 				localStorage.setItem("cut_off_values", defaultCutoffs); 
@@ -504,7 +535,7 @@ calculate.addEventListener("click", function()	{
 				analyze_grade()
 			}
 			else {
-				alert("Calculations cannot be done without cutoffs")
+				alert("Please go and enter your own cut offs")
 			}
 		}
 	}
