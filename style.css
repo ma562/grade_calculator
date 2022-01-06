@@ -77,6 +77,28 @@ body{
 	background-color: black
 }
 
+#amount	{
+	background-color: black;
+	border-radius: 5px;
+	font-size: 1.1vw;
+	padding: 2.5;
+	color: white;
+	width: 40%;
+	height: 30%;
+	float: left;
+	display: inline-block;
+}
+
+#required {
+	height: 30%;
+	width: 40%;
+	font-size: 1.1vw;
+	padding: 2.5;
+	float: right;
+	background-color: black;
+	display: inline-block;
+}
+
 .logo_pts	{
 	margin: 10px;
 	position: relative;

@@ -271,7 +271,7 @@ function analyze_grade()	{
 	localStorage.setItem("grade_current_progress", cur_progress + " %")
 
 	var percent_controllable = 100 - opportunity_earn;
-	var max_final = current_earnings + percent_controllable;
+	var max_final = (current_earnings + percent_controllable).toFixed(2);
 	localStorage.setItem("grade_highest_final", max_final + " %")
 
 	document.getElementById("earn_opportunity").innerHTML = ""
@@ -303,15 +303,19 @@ function analyze_grade()	{
 	var highest_val = localStorage.getItem("grade_highest_final")
 	highest.innerText = "Highest possible final score: " + highest_val 
 	document.getElementById("highest_final").appendChild(highest)
-
 }
 
 calculate.addEventListener("click", function()	{
 
-	var follow_through = true
+	var follow_through = false
 
-	if(localStorage.length == 0)	{
-		follow_through = false
+	for(var i = 0; i < localStorage.length; i++)	{
+		if(localStorage.key(i).includes("category_"))	{
+			follow_through = true
+		}
+	}
+
+	if(!follow_through)	{
 		alert("Please create at least one category!")
 	}
 
@@ -485,21 +489,23 @@ calculate.addEventListener("click", function()	{
 	}
 	console.log(localStorage);
 
-	//OVERALL GRADE ANALYSIS
-	var grade_keys = localStorage.getItem("cut_off_values")
-	if(grade_keys !== null && grade_keys !== "")	{
-		analyze_grade()
-	}
-	else {
-		var answer = window.confirm("Would you like to use the default cut offs")
-		if(answer)	{
-			var defaultCutoffs = "A+_97,A_93,A-_90,B+_87,B_83,B-_80,C+_77,C_73,C-_70,D+_67,D_63,D-_60"
-			localStorage.setItem("cut_off_values", defaultCutoffs); 
-			arrange_grade_buttons_2()
+	if(follow_through)	{
+		//OVERALL GRADE ANALYSIS
+		var grade_keys = localStorage.getItem("cut_off_values")
+		if(grade_keys !== null && grade_keys !== "")	{
 			analyze_grade()
 		}
 		else {
-			alert("Calculations cannot be done without cutoffs")
+			var answer = window.confirm("Would you like to use the default cut offs")
+			if(answer)	{
+				var defaultCutoffs = "A+_97,A_93,A-_90,B+_87,B_83,B-_80,C+_77,C_73,C-_70,D+_67,D_63,D-_60"
+				localStorage.setItem("cut_off_values", defaultCutoffs); 
+				arrange_grade_buttons_2()
+				analyze_grade()
+			}
+			else {
+				alert("Calculations cannot be done without cutoffs")
+			}
 		}
 	}
 })
