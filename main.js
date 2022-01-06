@@ -210,15 +210,6 @@ inputCutOff.addEventListener("click", function()	{
 				}
 			}
 			localStorage.setItem("cut_off_values", submission_string);
-
-			var append_vals = submission_string.split(",")
-			for(var i = 0; i < append_vals.length; i++)	{
-				var pairs = append_vals[i].split("_")
-				var title = document.createElement('button')
-				title.classList.add("cut_off_button")
-				title.innerText = pairs[0] + " >= " + pairs[1]
-				document.getElementById("cut_offs_container").appendChild(title);
-			}
 		}
 		arrange_grade_buttons_2()
 		console.log(localStorage)
@@ -244,7 +235,79 @@ cut_off.addEventListener("keyup", function(event)	{
 	}
 })
 
+function analyze_grade()	{
+	var opportunity_earn = 0;
+	var current_earnings = 0;
+	var permanent_loss = 0;
+	var cur_progress = 0;
+
+
+	for(var i = 0; i < localStorage.length; i++)	{
+		if(localStorage.key(i).includes("category_"))	{
+			var cat_name = localStorage.getItem(localStorage.key(i));
+
+			//opportunity to earn
+			var earn_opportunity = localStorage.getItem(cat_name + "_opportunity_percent")
+			opportunity_earn += parseFloat(earn_opportunity.split(" ")[0])
+
+			//current earnings
+			var earnings = localStorage.getItem(cat_name + "_secured_percent")
+			current_earnings += parseFloat(earnings.split(" ")[0])
+
+			//permanent loss
+			var loss = localStorage.getItem(cat_name + "_loss_percent")
+			permanent_loss += parseFloat(loss.split(" ")[0])
+		}
+	}
+
+	var opportunity = String(opportunity_earn.toFixed(2)) + " %"
+	localStorage.setItem("grade_earn_opportunity", opportunity)
+	var earning = String(current_earnings.toFixed(2)) + " %"
+	localStorage.setItem("grade_current_earnings", earning)
+	var lost = String(permanent_loss.toFixed(2)) + " %"
+	localStorage.setItem("grade_permanent_loss", lost)
+
+	cur_progress = ((current_earnings / opportunity_earn) * 100).toFixed(2)
+	localStorage.setItem("grade_current_progress", cur_progress + " %")
+
+	var percent_controllable = 100 - opportunity_earn;
+	var max_final = current_earnings + percent_controllable;
+	localStorage.setItem("grade_highest_final", max_final + " %")
+
+	document.getElementById("earn_opportunity").innerHTML = ""
+	var earn = document.createElement('p')
+	var earn_val = localStorage.getItem("grade_earn_opportunity")
+	earn.innerText = "Percent you had the opportunity to earn: " + earn_val
+	document.getElementById("earn_opportunity").appendChild(earn);
+
+	document.getElementById("current_earnings").innerHTML = ""
+	var current = document.createElement('p')
+	var current_val = localStorage.getItem("grade_current_earnings")
+	current.innerText = "Total secured percent: " + current_val
+	document.getElementById("current_earnings").appendChild(current)
+
+	document.getElementById("permanent_loss").innerHTML = ""
+	var perm = document.createElement('p')
+	var per_val = localStorage.getItem("grade_permanent_loss")
+	perm.innerText = "Total percent permanently lost: " + per_val 
+	document.getElementById("permanent_loss").appendChild(perm)
+
+	document.getElementById("current_progress").innerHTML = ""
+	var cur = document.createElement('p')
+	var cur_val = localStorage.getItem("grade_current_progress")
+	cur.innerText = "Current progress and percentage: " + cur_val 
+	document.getElementById("current_progress").appendChild(cur)
+
+	document.getElementById("highest_final").innerHTML = ""
+	var highest = document.createElement('p')
+	var highest_val = localStorage.getItem("grade_highest_final")
+	highest.innerText = "Highest possible final score: " + highest_val 
+	document.getElementById("highest_final").appendChild(highest)
+
+}
+
 calculate.addEventListener("click", function()	{
+
 	var follow_through = true
 
 	if(localStorage.length == 0)	{
@@ -421,6 +484,24 @@ calculate.addEventListener("click", function()	{
 		}
 	}
 	console.log(localStorage);
+
+	//OVERALL GRADE ANALYSIS
+	var grade_keys = localStorage.getItem("cut_off_values")
+	if(grade_keys !== null && grade_keys !== "")	{
+		analyze_grade()
+	}
+	else {
+		var answer = window.confirm("Would you like to use the default cut offs")
+		if(answer)	{
+			var defaultCutoffs = "A+_97,A_93,A-_90,B+_87,B_83,B-_80,C+_77,C_73,C-_70,D+_67,D_63,D-_60"
+			localStorage.setItem("cut_off_values", defaultCutoffs); 
+			arrange_grade_buttons_2()
+			analyze_grade()
+		}
+		else {
+			alert("Calculations cannot be done without cutoffs")
+		}
+	}
 })
 
 function arrange_grade_buttons_2()	{
