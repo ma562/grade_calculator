@@ -105,7 +105,12 @@
 						var x = borders[i].split("_")[1]
 						var y = borders[i].split("_")[0]
 						var x_val = document.createElement('p')
-						x_val.innerText = x + " %"
+						if(x == "COURSE COMPLETE")	{
+							x_val.innerText = x
+						}
+						else {
+							x_val.innerText = x + " %"
+						}
 						x_val.classList.add("cut_off_percent")
 						var y_val = document.createElement('p')
 						y_val.innerText = String(y)
@@ -454,8 +459,8 @@
 			<div class = "input sliders">
 			</div>
 
-			
-			
+
+
 		<script src = "main.js"></script>
 	</body>
 </html>

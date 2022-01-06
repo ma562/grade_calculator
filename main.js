@@ -332,10 +332,10 @@ function analyze_grade()	{
 			y_val.classList.add("earn_the_grade")
 			document.getElementById("amount_info").appendChild(y_val)
 			if(virtual_amounts == "")	{
-				virtual_amounts = String(letter_val) + "_" + String(x)
+				virtual_amounts = String(letter_val) + "_COURSE COMPLETE"
 			}
 			else {
-				virtual_amounts += "," + String(letter_val) + "_" + String(x)
+				virtual_amounts += "," + String(letter_val) + "_COURSE COMPLETE"
 			}
 		}
 		localStorage.setItem("cut_off_borders", virtual_amounts)
