@@ -95,7 +95,25 @@
 					var highest_val = localStorage.getItem("grade_highest_final")
 					highest.innerText = "Highest possible final score: " + highest_val 
 					document.getElementById("highest_final").appendChild(highest)
-				}
+				}	
+
+				var borders = localStorage.getItem("cut_off_borders")
+				document.getElementById("amount_info").innerHTML = ""
+				if(borders != null)	{
+					borders = borders.split(",")
+					for(var i = 0; i < borders.length; i++)	{
+						var x = borders[i].split("_")[1]
+						var y = borders[i].split("_")[0]
+						var x_val = document.createElement('p')
+						x_val.innerText = x + " %"
+						x_val.classList.add("cut_off_percent")
+						var y_val = document.createElement('p')
+						y_val.innerText = String(y)
+						y_val.classList.add("earn_the_grade")
+						document.getElementById("amount_info").appendChild(x_val)
+						document.getElementById("amount_info").appendChild(y_val)
+					}
+				}	
 
 				for(var i = 0; i < localStorage.length; i++)	{
 					if(localStorage.key(i).includes("category_"))	{
@@ -425,7 +443,7 @@
 						Average amount required (on rest of course work):<br>----------------
 					</div>
 					<div id = "required">
-						<br>To earn the <br>following grade<br>--------------
+						<br>To earn the <br>following grade:<br>--------------
 					</div>
 					<br><br><br><br>
 					<div id = "amount_info">

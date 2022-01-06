@@ -38,6 +38,7 @@ body{
 	font-size: 1.1vw;
 	border-radius: 15px;
 	height: 90%;
+	overflow-y: auto;
 }
 
 .to-dos {
@@ -99,10 +100,32 @@ body{
 	display: inline-block;
 }
 
+.cut_off_percent {
+	text-align: center;
+	align-items: center;
+	height: 10%;
+	width: 40%;
+	float: left;
+	display: inline-block;
+	background-color: black;
+	color: #FFCB05;;
+}
+
+.earn_the_grade {
+	text-align: center;
+	align-items: center;
+	height: 10%;
+	width: 50%;
+	float: right;
+	display: inline-block;
+	background-color: black;
+	color: #FFCB05;
+}
+
 #amount_info	{
 	align-items: center;
 	width: 100%;
-	background-color: green;
+	/*background-color: green;*/
 }
 
 .logo_pts	{
