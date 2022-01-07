@@ -670,6 +670,28 @@ calculate.addEventListener("click", function()	{
 
 		localStorage.setItem("slider_inputs", slider_names)
 
+		//projected final grade
+		document.getElementById("max_min").innerHTML = ""
+		var maximum = document.createElement('p')
+		var max_perc = parseFloat(localStorage.getItem("grade_highest_final").split("_")[0]).toFixed(1)
+		var max_letter = retrieve_letter(max_perc)
+		maximum.innerText = "MAX: " + String(max_perc) + "% (" + max_letter + ")"
+
+		document.getElementById("max_min").appendChild(maximum)
+		for(var j = 0; j < 18; j++)	{
+			var br = document.createElement('br')
+			document.getElementById("max_min").appendChild(br)
+		}
+		var minimum = document.createElement('p')
+		var min_perc = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(1)
+		var min_letter = retrieve_letter(min_perc)
+		minimum.innerText = "MIN " + String(min_perc) + "% (" + min_letter + ")"
+		document.getElementById("max_min").appendChild(minimum)
+
+		document.getElementById("output_2").max = max_perc
+		document.getElementById("output_2").min = min_perc 
+		document.getElementById("output_2").value = (max_perc + min_perc) / 2
+
 		//set dynamic properties of the slider
 		for(var i = 0; i < not_done.length; i++)	{
 			var value = document.getElementById("selector_" + not_done[i])
@@ -693,27 +715,27 @@ calculate.addEventListener("click", function()	{
 						total += parseFloat(localStorage.getItem(not_done[j] + "_val")) * (point_weight - earn_d)
 					}
 					var weighted_avg = total / influence_left
+					
+					var min_border = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(2)
+					var val = parseFloat((weighted_avg * influence_left / 100)) + parseFloat(min_border)
 					document.getElementById("output_1").value = weighted_avg
+					document.getElementById("output_2").value = val
+					document.getElementById("tag_val").style.left = -15 + 460 * weighted_avg / 100 + "px"
+					document.getElementById("tag_val").innerHTML = ""
+					var final = document.createElement('p')
+					final.innerText = "Final grade"
+					document.getElementById("tag_val").appendChild(final)
+					var final_per = document.createElement('p')
+					final_per.innerText = val.toFixed(2) + "%"
+					document.getElementById("tag_val").appendChild(final_per)
+					var earned_letter = retrieve_letter(val)
+					var earnd_let = document.createElement('p')
+					earnd_let.innerText = "(" + earned_letter + ")"
+					document.getElementById("tag_val").appendChild(earnd_let)
+
 				}
 			}
 		}
-
-		document.getElementById("max_min").innerHTML = ""
-		var maximum = document.createElement('p')
-		var max_perc = parseFloat(localStorage.getItem("grade_highest_final").split("_")[0]).toFixed(1)
-		var max_letter = retrieve_letter(max_perc)
-		maximum.innerText = "MAX: " + String(max_perc) + "% (" + max_letter + ")"
-
-		document.getElementById("max_min").appendChild(maximum)
-		for(var j = 0; j < 18; j++)	{
-			var br = document.createElement('br')
-			document.getElementById("max_min").appendChild(br)
-		}
-		var minimum = document.createElement('p')
-		var min_perc = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(1)
-		var min_letter = retrieve_letter(min_perc)
-		minimum.innerText = "MIN " + String(min_perc) + "% (" + min_letter + ")"
-		document.getElementById("max_min").appendChild(minimum)
 		
 	}
 })
