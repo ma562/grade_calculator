@@ -667,6 +667,13 @@ calculate.addEventListener("click", function()	{
 				}
 			}
 		}
+
+		document.getElementById("max_min").innerHTML = ""
+		var maximum = document.createElement('p')
+		maximum.innerText = "Max: 100% (A+)"
+		document.getElementById("max_min").appendChild(maximum)
+
+		
 	}
 })
 
