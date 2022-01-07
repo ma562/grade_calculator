@@ -598,8 +598,6 @@ calculate.addEventListener("click", function()	{
 		}
 		localStorage.setItem("incomplete", incompletes);
 
-
-
 		document.getElementById("input_slider_container").innerHTML = ""
 
 		var not_done = localStorage.getItem("incomplete");
@@ -617,19 +615,15 @@ calculate.addEventListener("click", function()	{
 			slide.max = "100"
 			// slide.id = "selector_" + not_done[i]
 			slide.setAttribute("id", "selector_" + not_done[i])
+			slider_div.setAttribute("id", "text_" + not_done[i])
 
-			slider_div.innerText = not_done[i]
+			slider_div.innerText = not_done[i] + ": "
 			
 			// var selectValue = document.createElement("")
-			slider_div.appendChild(slide)
 			selector.appendChild(slider_div)
-
-			console.log(slide)
-
-			// document.getElementById("selector_" + not_done[i]).oninput = function() {
-			// 	console.log(not_done[i] + String(this.value))
-
-			// }
+			selector.appendChild(slide)
+			// slider_div.appendChild(slide)
+			// selector.appendChild(slider_div)
 
 			document.getElementById("input_slider_container").appendChild(selector)
 		}
@@ -639,7 +633,12 @@ calculate.addEventListener("click", function()	{
 			var value = document.getElementById("selector_" + not_done[i])
 			value.oninput = function(e)	{
 				if(e.target)	{
-					console.log(String(e.target.id) + String(this.value))
+					// console.log(String(e.target.id) + String(this.value))
+					var txt_val = e.target.id;
+					txt_val = txt_val.split("_")[1]
+					var name = txt_val
+					txt_val = "text_" + txt_val
+					document.getElementById(txt_val).innerHTML = name + ": " + this.value + " %"
 				}
 			}
 		}
