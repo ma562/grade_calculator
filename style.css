@@ -47,9 +47,11 @@ body{
 	align-items: center;
 	text-align: center;
 	transform: rotate(-90deg);
-	top: 46.5%;
-	left: -125%;
-	width: 310%;
+	top: 42%;
+	right: 100%;
+	/*left: -200px;*/
+	width: 270%;
+	height: 10%;
 	color: #FFCB05;
 	background: #18191a;
 	position: relative;
