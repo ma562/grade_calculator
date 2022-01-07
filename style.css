@@ -33,7 +33,7 @@ body{
 }
 
 .output_sliders {
-	background-color: white;
+	background-color: #18191a;
 	border-radius: 25px;
 	padding: 10;
 	top: 22.5%;
@@ -41,6 +41,22 @@ body{
 	width: 13.5%;
 	height: 72.5%;
 	position: absolute;
+}
+
+.average_output {
+	align-items: center;
+	text-align: center;
+	transform: rotate(-90deg);
+	top: 46.5%;
+	left: -125%;
+	width: 310%;
+	color: #FFCB05;
+	background: #18191a;
+	position: relative;
+}
+
+#output_1 {
+	width: 100%;
 }
 
 .main_info	{
