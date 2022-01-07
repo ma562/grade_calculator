@@ -617,7 +617,7 @@ calculate.addEventListener("click", function()	{
 			slide.setAttribute("id", "selector_" + not_done[i])
 			slider_div.setAttribute("id", "text_" + not_done[i])
 
-			slider_div.innerText = not_done[i] + ": "
+			slider_div.innerText = not_done[i] + ": 50%"
 			
 			// var selectValue = document.createElement("")
 			selector.appendChild(slider_div)

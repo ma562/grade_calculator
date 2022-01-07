@@ -63,20 +63,18 @@ body{
 
 .slider {
 	width: 60%;
-	height: 20%;
+	height: 15%;
 	float: right;
 	position: relative;
-	/*bottom: 0px;*/
 	float: right;
 	background: red;
-	align-items: center;
+	/*align-items: center;*/
 }
 
 .slider_format {
-	/*top: 35px;*/
 	width: 35%;
 	color: white;
-	height: 20%;
+	height: 15%;
 	position: relative;
 	float: left;
 	text-align: center;
@@ -161,7 +159,7 @@ body{
 	float: left;
 	display: inline-block;
 	background-color: black;
-	color: #FFCB05;;
+	color: #FFCB05;
 }
 
 .earn_the_grade {
