@@ -47,7 +47,7 @@ body{
 	align-items: center;
 	text-align: center;
 	transform: rotate(-90deg);
-	top: 42%;
+	top: 260px;
 	right: 180px;
 	/*left: -200px;*/
 	width: 500px;
@@ -57,6 +57,12 @@ body{
 	position: relative;
 	background: green;
 }
+
+/*.average_output_scale {
+	background: red;
+	transform: rotate(-90deg);
+	width: 500px;
+}*/
 
 #output_1 {
 	width: 100%;
