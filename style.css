@@ -47,7 +47,7 @@ body{
 	align-items: center;
 	text-align: center;
 	transform: rotate(-90deg);
-	top: 260px;
+	top: 250px;
 	right: -117.5px;
 	/*left: -200px;*/
 	width: 500px;
@@ -55,19 +55,19 @@ body{
 	color: #FFCB05;
 	background: #18191a;
 	position: absolute;
-	background: green;
+	/*background: green;*/
 }
 
 .average_output_scale {
 	color: white;
 	font-size: 20;
 	background: #18191a;
-	top: 28px;
+	top: 20px;
 	height: 500px;
 	right: 150px;
 	width: 40px;
 	position: absolute;
-	background: red;
+	/*background: red;*/
 }
 
 #output_1 {
