@@ -32,6 +32,17 @@ body{
 	color: black;
 }
 
+.output_sliders {
+	background-color: white;
+	border-radius: 25px;
+	padding: 10;
+	top: 22.5%;
+	left: 84%;
+	width: 13.5%;
+	height: 72.5%;
+	position: absolute;
+}
+
 .main_info	{
 	position: absolute;
 	color: darkblue;
