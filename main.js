@@ -453,13 +453,29 @@ calculate.addEventListener("click", function()	{
 		}
 
 		//iterate through once again to establish percent weightings
+
+		var incompletes = ""
+
 		for(var i = 0; i < localStorage.length; i++)	{
 			if(localStorage.key(i).includes("category_"))	{
+
 				var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
 				var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
 				var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
 				var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
 				var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
+
+				//establish the incomplete categories
+				var completeness = localStorage.getItem(cat_name + "_completed_info");
+				if(completeness.split(" / ")[0] !== completeness.split(" / ")[1])	{
+					//the category is not yet complete
+					if(incompletes == "")	{
+						incompletes = cat_name
+					}
+					else {
+						incompletes += "," + cat_name
+					}
+				}
 
 				//calculate percent_weighting
 				var percent_weight = ((parseFloat(weight_value) / total_points) * 100).toFixed(2)
@@ -502,6 +518,7 @@ calculate.addEventListener("click", function()	{
 				localStorage.setItem(cat_name + "_loss_percent", loss);
 			}
 		}
+		localStorage.setItem("incompletes", incompletes);
 	}
 
 	let val = document.getElementById("categoryContainer").innerText;
@@ -569,7 +586,31 @@ calculate.addEventListener("click", function()	{
 			}
 			else {
 				alert("Please go and enter your own cut offs")
+				follow_through = false
 			}
+		}
+	}
+
+	//establish the sliders
+	if(follow_through)	{
+		document.getElementById("input_slider_container").innerHTML = ""
+
+		var not_done = localStorage.getItem("incompletes");
+		not_done = not_done.split(",")
+		for(var i = 0; i < not_done.length; i++)	{
+			var slider_div = document.createElement("div")
+			slider_div.classList.add("slider_format")
+			var slide = document.createElement("input")
+			slide.type = "range"
+			slide.classList.add("slider")
+			slide.min = "0"
+			slide.max = "100"
+			slider_div.innerText = not_done[i]
+
+			var selector = document.createElement("div");
+			// var selectValue = document.createElement("")
+			slider_div.appendChild(slide)
+			document.getElementById("input_slider_container").appendChild(slider_div)
 		}
 	}
 })

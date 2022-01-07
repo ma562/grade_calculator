@@ -18,6 +18,20 @@ body{
 	overflow:  auto;
 }
 
+.input_sliders {
+	font-weight: bold;
+	font-size: 1vw;
+	background-color: #FFCB05;
+	height: 30%;
+	width: 30%;
+	position: absolute;
+	top: 65%;
+	left: 52.5%;
+	border-radius: 25px;
+	padding: 10;
+	color: black;
+}
+
 .main_info	{
 	position: absolute;
 	color: darkblue;
@@ -30,6 +44,37 @@ body{
 	top: 22.5%;
 	left: 52.5%;
 }
+
+.description {
+	top: 5%;
+	position: absolute;
+}
+
+#input_slider_container {
+	padding: 5;
+	background-color: #18191a;
+	border-radius: 15px;
+	position: absolute;
+	top: 12.5%;
+	width: 95%;
+	height: 82.5%;
+	overflow-y: auto;
+}
+
+.slider {
+	width: 75%;
+	float: right;
+	position: relative;
+	bottom: 0px;
+}
+
+.slider_format {
+	top: 35px;
+	color: white;
+	height: 30%;
+	position: relative;
+}
+
 
 .final_info	{
 	background-color: black;
