@@ -55,7 +55,6 @@ body{
 	color: #FFCB05;
 	background: #18191a;
 	position: absolute;
-	/*background: green;*/
 }
 
 .average_output_scale {
@@ -70,8 +69,47 @@ body{
 	/*background: red;*/
 }
 
+.final_output_scale {
+	color: white;
+	font-size: 18;
+	background: #18191a;
+	top: 20px;
+	height: 500px;
+	right: 60px;
+	width: 50px;
+	position: absolute;
+}
+
+.final_grade {
+	color: #FFCB05;
+	transform: rotate(-90deg);
+	align-items: center;
+	text-align: center;
+	right: -190px;
+	top: 250px;
+	width: 500px;
+	position: absolute;
+	background: transparent;
+}
+
 #output_1 {
 	width: 100%;
+}
+
+#output_2 {
+	width: 100%;
+}
+
+.shield_layer {
+	background: transparent;
+	border-radius: 25px;
+	padding: 10;
+	top: 22.5%;
+	left: 84%;
+	width: 13.5%;
+	height: 72.5%;
+	position: absolute;
+	z-index: 5;
 }
 
 .main_info	{
