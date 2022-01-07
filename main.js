@@ -1,3 +1,4 @@
+
 let addToDoButton = document.getElementById('addToDo');
 let todDoContainer = document.getElementById('toDoContainer');
 let inputField = document.getElementById('inputField');
@@ -602,6 +603,9 @@ calculate.addEventListener("click", function()	{
 
 		var not_done = localStorage.getItem("incomplete");
 		not_done = not_done.split(",")
+
+		slider_names = ""
+
 		for(var i = 0; i < not_done.length; i++)	{
 			var slider_div = document.createElement("div")
 			slider_div.classList.add("slider_format")
@@ -618,15 +622,23 @@ calculate.addEventListener("click", function()	{
 			slider_div.setAttribute("id", "text_" + not_done[i])
 
 			slider_div.innerText = not_done[i] + ": 50%"
-			
+			if(slider_names == "")	{
+				slider_names = not_done[i]
+			}
+			else {
+				slider_names += "," + not_done[i]
+			}
+			localStorage.setItem(not_done[i]+"_val", "50")
 			// var selectValue = document.createElement("")
 			selector.appendChild(slider_div)
 			selector.appendChild(slide)
 			// slider_div.appendChild(slide)
 			// selector.appendChild(slider_div)
-
+			document.getElementById("output_1").value = 50
 			document.getElementById("input_slider_container").appendChild(selector)
 		}
+
+		localStorage.setItem("slider_inputs", slider_names)
 
 		//set dynamic properties of the slider
 		for(var i = 0; i < not_done.length; i++)	{
@@ -639,6 +651,19 @@ calculate.addEventListener("click", function()	{
 					var name = txt_val
 					txt_val = "text_" + txt_val
 					document.getElementById(txt_val).innerHTML = name + ": " + this.value + " %"
+					localStorage.setItem(name + "_val", this.value)
+
+					//calculate weighted value
+					var total = 0
+					var influence_left = 0
+					for(var j = 0; j < not_done.length; j++)	{
+						var point_weight = parseFloat(localStorage.getItem(not_done[j] + "_percent_weighting").split(" ")[0])
+						var earn_d = parseFloat(localStorage.getItem(not_done[j] + "_opportunity_percent").split(" ")[0])
+						influence_left += point_weight - earn_d
+						total += parseFloat(localStorage.getItem(not_done[j] + "_val")) * (point_weight - earn_d)
+					}
+					var weighted_avg = total / influence_left
+					document.getElementById("output_1").value = weighted_avg
 				}
 			}
 		}
