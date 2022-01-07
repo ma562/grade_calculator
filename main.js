@@ -452,10 +452,6 @@ calculate.addEventListener("click", function()	{
 			}
 		}
 
-		//iterate through once again to establish percent weightings
-
-		var incompletes = ""
-
 		for(var i = 0; i < localStorage.length; i++)	{
 			if(localStorage.key(i).includes("category_"))	{
 
@@ -464,18 +460,6 @@ calculate.addEventListener("click", function()	{
 				var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
 				var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
 				var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
-
-				//establish the incomplete categories
-				var completeness = localStorage.getItem(cat_name + "_completed_info");
-				if(completeness.split(" / ")[0] !== completeness.split(" / ")[1])	{
-					//the category is not yet complete
-					if(incompletes == "")	{
-						incompletes = cat_name
-					}
-					else {
-						incompletes += "," + cat_name
-					}
-				}
 
 				//calculate percent_weighting
 				var percent_weight = ((parseFloat(weight_value) / total_points) * 100).toFixed(2)
@@ -518,7 +502,7 @@ calculate.addEventListener("click", function()	{
 				localStorage.setItem(cat_name + "_loss_percent", loss);
 			}
 		}
-		localStorage.setItem("incompletes", incompletes);
+		
 	}
 
 	let val = document.getElementById("categoryContainer").innerText;
@@ -593,24 +577,71 @@ calculate.addEventListener("click", function()	{
 
 	//establish the sliders
 	if(follow_through)	{
+		var incompletes = ""
+		localStorage.removeItem("incomplete");
+
+		//establish the incomplete categories
+		for(var x = 0; x < localStorage.length; x++)	{
+			if(localStorage.key(x).includes("category_"))	{
+				var cat_name = localStorage.getItem(localStorage.key(x));
+				var completeness = localStorage.getItem(cat_name + "_completed_info");
+				if(completeness.split(" / ")[0] !== completeness.split(" / ")[1])	{
+					//the category is not yet complete
+					if(incompletes === "")	{
+						incompletes = cat_name
+					}
+					else {
+						incompletes += "," + cat_name
+					}
+				}
+			}
+		}
+		localStorage.setItem("incomplete", incompletes);
+
+
+
 		document.getElementById("input_slider_container").innerHTML = ""
 
-		var not_done = localStorage.getItem("incompletes");
+		var not_done = localStorage.getItem("incomplete");
 		not_done = not_done.split(",")
 		for(var i = 0; i < not_done.length; i++)	{
 			var slider_div = document.createElement("div")
 			slider_div.classList.add("slider_format")
+
+			var selector = document.createElement("div")
+
 			var slide = document.createElement("input")
 			slide.type = "range"
 			slide.classList.add("slider")
 			slide.min = "0"
 			slide.max = "100"
-			slider_div.innerText = not_done[i]
+			// slide.id = "selector_" + not_done[i]
+			slide.setAttribute("id", "selector_" + not_done[i])
 
-			var selector = document.createElement("div");
+			slider_div.innerText = not_done[i]
+			
 			// var selectValue = document.createElement("")
 			slider_div.appendChild(slide)
-			document.getElementById("input_slider_container").appendChild(slider_div)
+			selector.appendChild(slider_div)
+
+			console.log(slide)
+
+			// document.getElementById("selector_" + not_done[i]).oninput = function() {
+			// 	console.log(not_done[i] + String(this.value))
+
+			// }
+
+			document.getElementById("input_slider_container").appendChild(selector)
+		}
+
+		//set dynamic properties of the slider
+		for(var i = 0; i < not_done.length; i++)	{
+			var value = document.getElementById("selector_" + not_done[i])
+			value.oninput = function(e)	{
+				if(e.target)	{
+					console.log(String(e.target.id) + String(this.value))
+				}
+			}
 		}
 	}
 })
