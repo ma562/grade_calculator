@@ -48,13 +48,14 @@ body{
 	text-align: center;
 	transform: rotate(-90deg);
 	top: 42%;
-	right: 100%;
+	right: 180px;
 	/*left: -200px;*/
-	width: 270%;
-	height: 10%;
+	width: 500px;
+	/*height: 10%;*/
 	color: #FFCB05;
 	background: #18191a;
 	position: relative;
+	background: green;
 }
 
 #output_1 {
