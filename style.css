@@ -59,12 +59,13 @@ body{
 }
 
 .average_output_scale {
+	font-size: 1.35vw;
 	background: yellow;
-	top: 260px;
+	top: 28px;
 	height: 500px;
-	right: 250px;
+	right: 75%;
 	width: 40px;
-	/*position: relative;*/
+	position: absolute;
 }
 
 #output_1 {
