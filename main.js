@@ -236,6 +236,36 @@ cut_off.addEventListener("keyup", function(event)	{
 	}
 })
 
+function retrieve_letter(percentage)	{
+	var scale = localStorage.getItem("cut_off_values").split(",")
+	console.log(scale)
+	var letter_grade = [];
+	var cut_val = [];
+
+	for(var i = 0; i < scale.length; i++)	{
+		letter_grade.push(scale[i].split("_")[0])
+		
+		cut_val.push(parseFloat(scale[i].split("_")[1]))
+		
+	}
+	var cut = cut_val[0]
+	var final_grade = letter_grade[0]
+	var index = 0;
+	while(percentage < cut)	{
+		index += 1
+		final_grade = letter_grade[index]
+		
+		cut = cut_val[index]
+		if(index > cut_val.length - 1)	{
+			break;
+		}
+	}
+	if(index > cut_val.length - 1)	{
+		final_grade = "F"
+	}
+	return final_grade;
+}
+
 function analyze_grade()	{
 	var opportunity_earn = 0;
 	var current_earnings = 0;
@@ -670,9 +700,20 @@ calculate.addEventListener("click", function()	{
 
 		document.getElementById("max_min").innerHTML = ""
 		var maximum = document.createElement('p')
-		maximum.innerText = "Max: 100% (A+)"
-		document.getElementById("max_min").appendChild(maximum)
+		var max_perc = parseFloat(localStorage.getItem("grade_highest_final").split("_")[0]).toFixed(1)
+		var max_letter = retrieve_letter(max_perc)
+		maximum.innerText = "MAX: " + String(max_perc) + "% (" + max_letter + ")"
 
+		document.getElementById("max_min").appendChild(maximum)
+		for(var j = 0; j < 18; j++)	{
+			var br = document.createElement('br')
+			document.getElementById("max_min").appendChild(br)
+		}
+		var minimum = document.createElement('p')
+		var min_perc = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(1)
+		var min_letter = retrieve_letter(min_perc)
+		minimum.innerText = "MIN " + String(min_perc) + "% (" + min_letter + ")"
+		document.getElementById("max_min").appendChild(minimum)
 		
 	}
 })
