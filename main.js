@@ -1265,6 +1265,24 @@ addToDoButton.addEventListener('click', function(){
 
 							localStorage.setItem("cat_names", new_cat)
 						}
+
+						var not_complete = localStorage.getItem("incomplete")
+						if(not_complete !== null)	{
+							var incomplete_list = not_complete.split(",")
+							var new_incomplete = ""
+							for(var i = 0; i < incomplete_list.length; i++)	{
+								if(incomplete_list[i] !== text) {
+									if(new_incomplete == "")	{
+										new_incomplete = incomplete_list[i]
+									}
+									else {
+										new_incomplete += "," + incomplete_list[i]
+									}
+								}
+							}
+							localStorage.setItem("incomplete", new_incomplete)
+						}
+
 					}
 					document.getElementById("toDoContainer").innerHTML = '';
 					document.getElementById("del").innerHTML = '';
@@ -1310,6 +1328,11 @@ addToDoButton.addEventListener('click', function(){
 					lost.innerText = "Permanent loss: -- %"
 					document.getElementById("loss_percent").innerHTML = '';
 					document.getElementById("loss_percent").appendChild(lost);
+
+					if(localStorage.getItem("incomplete") !== null && localStorage.getItem("incomplete") !== "") {
+						calculate.click()		//calculate after deletion
+					}
+					
 					reload();
 				}
 			}
