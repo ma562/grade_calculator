@@ -59,7 +59,6 @@
 			}
 
 			function reload()	{
-
 				arrange_grade_buttons_2()
 				//update main info
 				if(localStorage.getItem("grade_earn_opportunity") !== null)	{
@@ -427,7 +426,7 @@
 								var name = txt_val
 								txt_val = "text_" + txt_val
 								document.getElementById(txt_val).innerHTML = name + ": " + this.value + " %"
-								localStorage.setItem(name + "_val", this.value)
+								// localStorage.setItem(name + "_val", this.value)
 
 								//calculate weighted value
 								var total = 0
@@ -544,6 +543,7 @@
 				<button class = "menu_button">Home <i class='bx bxs-home' ></i></button>
 				<button class = "menu_button">How to use <i class='bx bx-mouse-alt' ></i></button>
 				<button class = "menu_button" id = "calc" >Calculate <i class='bx bx-check-square'></i></button>
+				<button class = "menu_button" id = "clear" >Clear all <i class='bx bx-comment-minus'></i>
 				</div>
 			</div>
 

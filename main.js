@@ -1,4 +1,3 @@
-
 let addToDoButton = document.getElementById('addToDo');
 let todDoContainer = document.getElementById('toDoContainer');
 let inputField = document.getElementById('inputField');
@@ -8,6 +7,119 @@ let inputMaxPts = document.getElementById('addPts');
 let inputDone = document.getElementById('addDonePts');
 let calculate = document.getElementById('calc');
 let inputCutOff = document.getElementById('addCut')
+let clear_all = document.getElementById('clear')
+
+clear_all.addEventListener("click", function()	{
+	var answer = window.confirm("Are you sure you want to clear everything?")
+	if(answer)	{
+		localStorage.clear()
+		reload();
+
+		document.getElementById("input_slider_container").innerHTML = ""
+
+		document.getElementById("earn_opportunity").innerHTML = ""
+		var earn = document.createElement('p')
+		earn.innerText = "Percent you had the opportunity to earn: -- %"
+		document.getElementById("earn_opportunity").appendChild(earn);
+
+		document.getElementById("current_earnings").innerHTML = ""
+		var current = document.createElement('p')
+		current.innerText = "Total secured percent: -- %"
+		document.getElementById("current_earnings").appendChild(current)
+
+		document.getElementById("permanent_loss").innerHTML = ""
+		var perm = document.createElement('p')
+		perm.innerText = "Total percent permanently lost: -- %"
+		document.getElementById("permanent_loss").appendChild(perm)
+
+		document.getElementById("current_progress").innerHTML = ""
+		var cur = document.createElement('p')
+		cur.innerText = "Current progress and percentage: -- %"
+		document.getElementById("current_progress").appendChild(cur)
+
+		document.getElementById("highest_final").innerHTML = ""
+		var highest = document.createElement('p')
+		highest.innerText = "Highest possible final score: -- %"
+		document.getElementById("highest_final").appendChild(highest)
+
+
+		document.getElementById("max_min").innerHTML = ""
+		var maximum = document.createElement('p')
+		maximum.innerText = "MAX: --% (--)"
+		document.getElementById("max_min").appendChild(maximum)
+		for(var j = 0; j < 18; j++)	{
+			var br = document.createElement('br')
+			document.getElementById("max_min").appendChild(br)
+		}
+		var minimum = document.createElement('p')
+		minimum.innerText = "MIN: --% (--)"
+		document.getElementById("max_min").appendChild(minimum)
+
+		document.getElementById("tag_val").innerHTML = ""
+		var final = document.createElement('p')
+		// var br = document.createElement('br')
+		final.innerText = "Final grade"
+		document.getElementById("tag_val").appendChild(final)
+		// document.getElementById("tag_val").appendChild(br)
+		var percent = document.createElement('p')
+		percent.innerText = "--%"
+		document.getElementById("tag_val").appendChild(percent)
+		var grade_letter = document.createElement('p')
+		grade_letter.innerText = "(--)"
+		document.getElementById("tag_val").appendChild(grade_letter)
+
+		document.getElementById("toDoContainer").innerHTML = ""
+		document.getElementById("del").innerHTML = ""
+
+		document.getElementById("categoryContainer").innerHTML = 'Select a category';
+		document.getElementById("categoryTitle").innerHTML = 'Select a category';
+		document.getElementById("weight_info").innerHTML = "Weight: --"
+		document.getElementById("num_info").innerHTML = 'Number of assessments: --'
+		document.getElementById("max_points").innerHTML = "Max pts on each assessment: --"
+		document.getElementById("work_so_far").innerHTML = ''
+
+		var complete = document.createElement('p')
+		complete.innerText = "Total assessments completed: -- / --"
+		document.getElementById("completed_info").innerHTML = '';
+		document.getElementById("completed_info").appendChild(complete);
+
+		var current = document.createElement('p')
+		current.innerText = "Current standing: -- / -- = --  %";
+		document.getElementById("current_stand").innerHTML = '';
+		document.getElementById("current_stand").appendChild(current);
+
+		var finale = document.createElement('p')
+		finale.innerText = "Final standing: -- / -- = -- %"
+		document.getElementById("final_stand").innerHTML = '';
+		document.getElementById("final_stand").appendChild(finale);
+
+		var percent = document.createElement('p')
+		percent.innerText = "Overall percentage weighting: -- %"
+		document.getElementById("percent_weighting").innerHTML = '';
+		document.getElementById("percent_weighting").appendChild(percent);
+
+		var opportunity = document.createElement('p')
+		opportunity.innerText = "You had the opportunity to earn: -- %"
+		document.getElementById("opportunity_percent").innerHTML = '';
+		document.getElementById("opportunity_percent").appendChild(opportunity);
+
+		var secured = document.createElement('p')
+		secured.innerText = "Secured percentage: -- %"
+		document.getElementById("secured_percent").innerHTML = '';
+		document.getElementById("secured_percent").appendChild(secured);
+
+		var lost = document.createElement('p')
+		lost.innerText = "Permanent loss: -- %"
+		document.getElementById("loss_percent").innerHTML = '';
+		document.getElementById("loss_percent").appendChild(lost);
+
+		document.getElementById("output_1").value = 50
+		document.getElementById("output_2").max = 100
+		document.getElementById("output_2").min = 0
+		document.getElementById("output_2").value = 50
+		document.getElementById("tag_val").style.left = 215 + "px"
+	}
+})
 
 inputCutOff.addEventListener("click", function()	{
 	const oldCutOffs = localStorage.getItem("cut_off_values");
