@@ -238,7 +238,6 @@ cut_off.addEventListener("keyup", function(event)	{
 
 function retrieve_letter(percentage)	{
 	var scale = localStorage.getItem("cut_off_values").split(",")
-	console.log(scale)
 	var letter_grade = [];
 	var cut_val = [];
 
@@ -583,7 +582,6 @@ calculate.addEventListener("click", function()	{
 			document.getElementById("loss_percent").appendChild(lost);
 		}
 	}
-	console.log(localStorage);
 
 	if(follow_through)	{
 		//OVERALL GRADE ANALYSIS
@@ -647,7 +645,7 @@ calculate.addEventListener("click", function()	{
 			slide.classList.add("slider")
 			slide.min = "0"
 			slide.max = "100"
-			// slide.id = "selector_" + not_done[i]
+
 			slide.setAttribute("id", "selector_" + not_done[i])
 			slider_div.setAttribute("id", "text_" + not_done[i])
 
@@ -659,11 +657,9 @@ calculate.addEventListener("click", function()	{
 				slider_names += "," + not_done[i]
 			}
 			localStorage.setItem(not_done[i]+"_val", "50")
-			// var selectValue = document.createElement("")
+
 			selector.appendChild(slider_div)
 			selector.appendChild(slide)
-			// slider_div.appendChild(slide)
-			// selector.appendChild(slider_div)
 			document.getElementById("output_1").value = 50
 			document.getElementById("input_slider_container").appendChild(selector)
 		}
@@ -691,6 +687,19 @@ calculate.addEventListener("click", function()	{
 		document.getElementById("output_2").max = max_perc
 		document.getElementById("output_2").min = min_perc 
 		document.getElementById("output_2").value = (max_perc + min_perc) / 2
+
+		document.getElementById("tag_val").innerHTML = ""
+		var final = document.createElement('p')
+		final.innerText = "Final grade"
+		document.getElementById("tag_val").appendChild(final)
+		var final_per = document.createElement('p')
+		var final_vals = parseFloat(document.getElementById("output_2").value)
+		final_per.innerText = parseFloat(final_vals).toFixed(2) + "%"
+		document.getElementById("tag_val").appendChild(final_per)
+		var earned_letter = retrieve_letter(final_vals)
+		var earnd_let = document.createElement('p')
+		earnd_let.innerText = "(" + earned_letter + ")"
+		document.getElementById("tag_val").appendChild(earnd_let)
 
 		//set dynamic properties of the slider
 		for(var i = 0; i < not_done.length; i++)	{
@@ -732,7 +741,6 @@ calculate.addEventListener("click", function()	{
 					var earnd_let = document.createElement('p')
 					earnd_let.innerText = "(" + earned_letter + ")"
 					document.getElementById("tag_val").appendChild(earnd_let)
-
 				}
 			}
 		}
