@@ -541,7 +541,7 @@ calculate.addEventListener("click", function()	{
 
 			if((max_pts == null || weight_value == null || num_total == null) && follow_through)	{
 				follow_through = false
-				alert("Please make sure category weighting, number of assessments and max pts on each assignment are filled out for category " + cat_name)
+				alert("Please make sure \n\u2022Category weighting\n\u2022Number of assessments\n\u2022Max pts on each assessment\nare filled out for " + cat_name)
 			}
 			else {
 				//add weights to determine total points
