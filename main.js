@@ -739,6 +739,7 @@ calculate.addEventListener("click", function()	{
 					else {
 						incompletes += "," + cat_name
 					}
+					console.log(incompletes)
 				}
 			}
 		}
@@ -860,6 +861,13 @@ calculate.addEventListener("click", function()	{
 					document.getElementById("tag_val").appendChild(earnd_let)
 				}
 			}
+		}
+
+		if(localStorage.getItem("incomplete") == "")	{
+			document.getElementById("input_slider_container").innerHTML = ""
+			document.getElementById("output_2").max = 100
+			document.getElementById("output_2").min = 0
+			document.getElementById("output_2").value = 50
 		}
 		
 	}
