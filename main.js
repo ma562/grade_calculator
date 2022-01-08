@@ -978,16 +978,18 @@ calculate.addEventListener("click", function()	{
 		minimum.innerText = "MIN " + String(min_perc) + "% (" + min_letter + ")"
 		document.getElementById("max_min").appendChild(minimum)
 
-		document.getElementById("output_2").max = max_perc
-		document.getElementById("output_2").min = min_perc 
-		document.getElementById("output_2").value = (max_perc + min_perc) / 2
+		//CHANGE
+		document.getElementById("output_2").max = parseFloat(localStorage.getItem("grade_highest_final").split("_")[0]).toFixed(2) * 100 //multiply by 100 to allow range slider precision
+		document.getElementById("output_2").min = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(2) * 100
+		document.getElementById("output_2").value = ((max_perc + min_perc) / 2) * 100
+		//CHANGE
 
 		document.getElementById("tag_val").innerHTML = ""
 		var final = document.createElement('p')
 		final.innerText = "Final grade"
 		document.getElementById("tag_val").appendChild(final)
 		var final_per = document.createElement('p')
-		var final_vals = parseFloat(document.getElementById("output_2").value)
+		var final_vals = (parseFloat(document.getElementById("output_2").value) / 100).toFixed(2) //change
 		final_per.innerText = parseFloat(final_vals).toFixed(2) + "%"
 		document.getElementById("tag_val").appendChild(final_per)
 		var earned_letter = retrieve_letter(final_vals)
@@ -1023,7 +1025,8 @@ calculate.addEventListener("click", function()	{
 					var min_border = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(2)
 					var val = parseFloat((weighted_avg * influence_left / 100)) + parseFloat(min_border)
 					document.getElementById("output_1").value = weighted_avg
-					document.getElementById("output_2").value = val
+					document.getElementById("output_2").value = val * 100		//change
+					console.log(val)
 					document.getElementById("tag_val").style.left = -15 + 460 * weighted_avg / 100 + "px"
 					document.getElementById("tag_val").innerHTML = ""
 					var final = document.createElement('p')
