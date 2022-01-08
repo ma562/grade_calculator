@@ -241,7 +241,8 @@
 									document.getElementById("loss_percent").innerHTML = '';
 									document.getElementById("loss_percent").appendChild(lost);
 
-									if(localStorage.getItem("incomplete") !== null && localStorage.getItem("incomplete") !== "") {
+									//only recalculate if grades have already been calculated
+									if(localStorage.getItem("grade_current_earnings") !== null && localStorage.getItem("cat_names") !== null) {
 										calculate.click()		//calculate after deletion
 									}
 									
@@ -694,43 +695,45 @@
 
 					for(var i = 0; i < incomplete_cats.length; i++)	{
 						var value = document.getElementById("selector_" + incomplete_cats[i])
-						value.oninput = function(e)	{
-							if(e.target)	{
-								// console.log(String(e.target.id) + String(this.value))
-								var txt_val = e.target.id;
-								txt_val = txt_val.split("_")[1]
-								var name = txt_val
-								txt_val = "text_" + txt_val
-								document.getElementById(txt_val).innerHTML = name + ": " + this.value + " %"
-								localStorage.setItem(name + "_val", this.value)
+						if(value !== null)	{
+							value.oninput = function(e)	{
+								if(e.target)	{
+									// console.log(String(e.target.id) + String(this.value))
+									var txt_val = e.target.id;
+									txt_val = txt_val.split("_")[1]
+									var name = txt_val
+									txt_val = "text_" + txt_val
+									document.getElementById(txt_val).innerHTML = name + ": " + this.value + " %"
+									localStorage.setItem(name + "_val", this.value)
 
-								//calculate weighted value
-								var total = 0
-								var influence_left = 0
-								for(var j = 0; j < incomplete_cats.length; j++)	{
-									var point_weight = parseFloat(localStorage.getItem(incomplete_cats[j] + "_percent_weighting").split(" ")[0])
-									var earn_d = parseFloat(localStorage.getItem(incomplete_cats[j] + "_opportunity_percent").split(" ")[0])
-									influence_left += point_weight - earn_d
-									total += parseFloat(localStorage.getItem(incomplete_cats[j] + "_val")) * (point_weight - earn_d)
+									//calculate weighted value
+									var total = 0
+									var influence_left = 0
+									for(var j = 0; j < incomplete_cats.length; j++)	{
+										var point_weight = parseFloat(localStorage.getItem(incomplete_cats[j] + "_percent_weighting").split(" ")[0])
+										var earn_d = parseFloat(localStorage.getItem(incomplete_cats[j] + "_opportunity_percent").split(" ")[0])
+										influence_left += point_weight - earn_d
+										total += parseFloat(localStorage.getItem(incomplete_cats[j] + "_val")) * (point_weight - earn_d)
+									}
+
+									var weighted_avg = total / influence_left
+									var min_border = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(2)
+									var val = parseFloat((weighted_avg * influence_left / 100)) + parseFloat(min_border)
+									document.getElementById("output_1").value = weighted_avg
+									document.getElementById("output_2").value = val * 100
+									document.getElementById("tag_val").style.left = -15 + 460 * weighted_avg / 100 + "px"
+									document.getElementById("tag_val").innerHTML = ""
+									var final = document.createElement('p')
+									final.innerText = "Final grade"
+									document.getElementById("tag_val").appendChild(final)
+									var final_per = document.createElement('p')
+									final_per.innerText = val.toFixed(2) + "%"
+									document.getElementById("tag_val").appendChild(final_per)
+									var earned_letter = retrieve_letter(val)
+									var earnd_let = document.createElement('p')
+									earnd_let.innerText = "(" + earned_letter + ")"
+									document.getElementById("tag_val").appendChild(earnd_let)
 								}
-
-								var weighted_avg = total / influence_left
-								var min_border = parseFloat(localStorage.getItem("grade_current_earnings").split("_")[0]).toFixed(2)
-								var val = parseFloat((weighted_avg * influence_left / 100)) + parseFloat(min_border)
-								document.getElementById("output_1").value = weighted_avg
-								document.getElementById("output_2").value = val * 100
-								document.getElementById("tag_val").style.left = -15 + 460 * weighted_avg / 100 + "px"
-								document.getElementById("tag_val").innerHTML = ""
-								var final = document.createElement('p')
-								final.innerText = "Final grade"
-								document.getElementById("tag_val").appendChild(final)
-								var final_per = document.createElement('p')
-								final_per.innerText = val.toFixed(2) + "%"
-								document.getElementById("tag_val").appendChild(final_per)
-								var earned_letter = retrieve_letter(val)
-								var earnd_let = document.createElement('p')
-								earnd_let.innerText = "(" + earned_letter + ")"
-								document.getElementById("tag_val").appendChild(earnd_let)
 							}
 						}
 					}

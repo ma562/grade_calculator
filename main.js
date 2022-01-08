@@ -1329,10 +1329,11 @@ addToDoButton.addEventListener('click', function(){
 					document.getElementById("loss_percent").innerHTML = '';
 					document.getElementById("loss_percent").appendChild(lost);
 
-					if(localStorage.getItem("incomplete") !== null && localStorage.getItem("incomplete") !== "") {
+					//only recalculate if grades have already been calculated
+					if(localStorage.getItem("grade_current_earnings") !== null && localStorage.getItem("cat_names") !== null) {
 						calculate.click()		//calculate after deletion
 					}
-					
+
 					reload();
 				}
 			}
