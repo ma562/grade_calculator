@@ -8,6 +8,11 @@ let inputDone = document.getElementById('addDonePts');
 let calculate = document.getElementById('calc');
 let inputCutOff = document.getElementById('addCut')
 let clear_all = document.getElementById('clear')
+let home_button = document.getElementById('home')
+
+home_button.addEventListener("click", function()	{
+	alert("still working on that :)")
+})
 
 clear_all.addEventListener("click", function()	{
 	var answer = window.confirm("Are you sure you want to clear everything?")
