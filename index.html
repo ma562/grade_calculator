@@ -626,33 +626,35 @@
 					document.getElementById("input_slider_container").innerHTML = ""
 					incomplete_cats = incomplete_cats.split(",")
 					for(var i = 0; i < incomplete_cats.length; i++)	{
-						var slider_div = document.createElement("div")
-						slider_div.classList.add("slider_format")
+						if(incomplete_cats[i] !== "")	{
+							var slider_div = document.createElement("div")
+							slider_div.classList.add("slider_format")
 
-						var selector = document.createElement("div")
+							var selector = document.createElement("div")
 
-						var slide = document.createElement("input")
-						slide.type = "range"
-						slide.classList.add("slider")
-						slide.min = "0"
-						slide.max = "100"
+							var slide = document.createElement("input")
+							slide.type = "range"
+							slide.classList.add("slider")
+							slide.min = "0"
+							slide.max = "100"
 
-						slide.setAttribute("id", "selector_" + incomplete_cats[i])
-						slider_div.setAttribute("id", "text_" + incomplete_cats[i])
+							slide.setAttribute("id", "selector_" + incomplete_cats[i])
+							slider_div.setAttribute("id", "text_" + incomplete_cats[i])
 
-						slider_div.innerText = incomplete_cats[i] + ": 50%"
-						// if(slider_names == "")	{
-						// 	slider_names = incomplete_cats[i]
-						// }
-						// else {
-						// 	slider_names += "," + incomplete_cats[i]
-						// }
-						// localStorage.setItem(incomplete_cats[i]+"_val", "50")
+							slider_div.innerText = incomplete_cats[i] + ": 50%"
+							// if(slider_names == "")	{
+							// 	slider_names = incomplete_cats[i]
+							// }
+							// else {
+							// 	slider_names += "," + incomplete_cats[i]
+							// }
+							// localStorage.setItem(incomplete_cats[i]+"_val", "50")
 
-						selector.appendChild(slider_div)
-						selector.appendChild(slide)
-						document.getElementById("output_1").value = 50
-						document.getElementById("input_slider_container").appendChild(selector)
+							selector.appendChild(slider_div)
+							selector.appendChild(slide)
+							document.getElementById("output_1").value = 50
+							document.getElementById("input_slider_container").appendChild(selector)
+						}
 					}
 
 					//projected final grade
