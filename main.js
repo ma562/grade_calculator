@@ -1026,7 +1026,6 @@ calculate.addEventListener("click", function()	{
 					var val = parseFloat((weighted_avg * influence_left / 100)) + parseFloat(min_border)
 					document.getElementById("output_1").value = weighted_avg
 					document.getElementById("output_2").value = val * 100		//change
-					console.log(val)
 					document.getElementById("tag_val").style.left = -15 + 460 * weighted_avg / 100 + "px"
 					document.getElementById("tag_val").innerHTML = ""
 					var final = document.createElement('p')
