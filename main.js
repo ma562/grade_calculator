@@ -10,9 +10,9 @@ let inputCutOff = document.getElementById('addCut')
 let clear_all = document.getElementById('clear')
 let home_button = document.getElementById('home')
 
-home_button.addEventListener("click", function()	{
-	alert("still working on that :)")
-})
+// home_button.addEventListener("click", function()	{
+// 	alert("still working on that :)")
+// })
 
 clear_all.addEventListener("click", function()	{
 	var answer = window.confirm("Are you sure you want to clear everything?")
@@ -546,12 +546,6 @@ calculate.addEventListener("click", function()	{
 		follow_through = true
 	}
 
-	// for(var i = 0; i < localStorage.length; i++)	{
-	// 	if(localStorage.key(i).includes("category_"))	{
-	// 		follow_through = true
-	// 	}
-	// }
-
 	if(!follow_through)	{
 		alert("Please create at least one category!")
 	}
@@ -580,26 +574,6 @@ calculate.addEventListener("click", function()	{
 			}
 		}
 	}
-
-
-	// for(var i = 0; i < localStorage.length; i++)	{
-	// 	if(localStorage.key(i).includes("category_"))	{
-	// 		var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
-	// 		var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
-	// 		var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
-	// 		var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
-
-	// 		if((max_pts == null || weight_value == null || num_total == null) && follow_through)	{
-	// 			follow_through = false
-	// 			alert("Please make sure \n\u2022Category weighting\n\u2022Number of assessments\n\u2022Max pts on each assessment\nare filled out for " + cat_name)
-	// 		}
-	// 		else {
-	// 			//add weights to determine total points
-	// 			total_points += parseFloat(weight_value)
-	// 		}
-	// 	}
-	// }
-
 
 
 	if(follow_through)	{
@@ -652,56 +626,6 @@ calculate.addEventListener("click", function()	{
 			localStorage.setItem(cat_name + "_final_stand", final_val);	
 		}
 
-
-		// for(var i = 0; i < localStorage.length; i++)	{
-		// 	if(localStorage.key(i).includes("category_"))	{
-		// 		//we found a category 
-		// 		var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
-		// 		var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
-		// 		var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
-		// 		var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
-		// 		var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
-
-		// 		//calculate completed_info
-				
-		// 		if(pts_so_far == null)	{
-		// 			var num_done = 0;
-		// 		}
-		// 		else {
-		// 			pts_so_far = pts_so_far.split(",");
-		// 			var num_done = pts_so_far.length;
-		// 		}
-				
-		// 		var num_val = String(num_done) + " / " + String(num_total)
-
-		// 		localStorage.setItem(cat_name + "_completed_info", num_val);
-
-		// 		//calculate current_stand
-		// 		var total_earned = 0;
-		// 		var total_earned_possible = num_done * parseFloat(max_pts);
-		// 		if(pts_so_far != null)	{
-		// 			for(var j = 0; j < pts_so_far.length; j++)	{
-		// 				total_earned += parseFloat(pts_so_far[j])
-		// 			}
-		// 		}
-		// 		if(num_done !== 0)	{
-		// 			var current_stand = ((total_earned / total_earned_possible) * 100).toFixed(2);
-		// 			var current_val = String(total_earned.toFixed(2)) + " / " + String(total_earned_possible) + " = " + String(current_stand) + " %" 
-		// 		}
-		// 		else {
-		// 			var current_val = "-- / -- = --  %"
-		// 		}
-		// 		localStorage.setItem(cat_name + "_current_stand", current_val);
-
-		// 		//calculate final stand
-		// 		var total_possible = parseInt(num_total) * parseFloat(max_pts);
-		// 		var final_stand = ((total_earned / total_possible) * 100).toFixed(2);
-		// 		var final_val = String(total_earned.toFixed(2)) + " / " + String(total_possible) + " = " + String(final_stand) + " %"
-		// 		localStorage.setItem(cat_name + "_final_stand", final_val);
-		// 	}
-		// }
-
-
 		//NEW CODE
 		for(var i = 0; i < names.length; i++)	{
 			var cat_name = names[i];
@@ -751,58 +675,6 @@ calculate.addEventListener("click", function()	{
 			localStorage.setItem(cat_name + "_loss_percent", loss);
 
 		}
-
-
-		// for(var i = 0; i < localStorage.length; i++)	{
-		// 	if(localStorage.key(i).includes("category_"))	{
-
-		// 		var cat_name = localStorage.getItem(localStorage.key(i));	//name of category
-		// 		var pts_so_far = localStorage.getItem(cat_name + "_donePts");	//string array of pts earned so far
-		// 		var max_pts = localStorage.getItem(cat_name + "_maxPts")	//max points on each assignment	
-		// 		var weight_value = localStorage.getItem(cat_name + "_weight")	//weight value of category
-		// 		var num_total = localStorage.getItem(cat_name + "_num_assess")	//number of total assignments
-
-		// 		//calculate percent_weighting
-		// 		var percent_weight = ((parseFloat(weight_value) / total_points) * 100).toFixed(2)
-
-		// 		var percent_weight_val = String(percent_weight) + " %"
-		// 		localStorage.setItem(cat_name + "_percent_weighting", percent_weight_val)
-
-		// 		//calculate opportunity_percent
-		// 		var numerator = localStorage.getItem(cat_name + "_current_stand")
-		// 		var denominator = localStorage.getItem(cat_name + "_final_stand")
-		// 		numerator = numerator.split(" =")
-		// 		numerator = numerator[0].split(" / ")
-		// 		numerator = numerator[1]
-		// 		denominator = denominator.split(" =")
-		// 		denominator = denominator[0].split(" / ")
-		// 		denominator = denominator[1]
-		// 		if(numerator == "--")	{
-		// 			numerator = 0;
-		// 		}
-		// 		numerator = parseFloat(numerator)
-		// 		denominator = parseFloat(denominator)
-		// 		var percent_opportunity = ((numerator / denominator) * percent_weight).toFixed(2)
-		// 		var percent_oppor_val = String(percent_opportunity) + " %"
-		// 		localStorage.setItem(cat_name + "_opportunity_percent", percent_oppor_val);
-
-		// 		//calculate secured_percent
-		// 		var secure_pts = localStorage.getItem(cat_name + "_final_stand")
-		// 		secure_pts = secure_pts.split(" =")
-		// 		secure_pts = secure_pts[0].split(" / ")
-		// 		secure_pts = secure_pts[0]
-
-		// 		var secure_percent = parseFloat(secure_pts) / denominator
-		// 		secure_percent = (secure_percent * percent_weight).toFixed(2)
-		// 		var secure_val = String(secure_percent) + " %"
-		// 		localStorage.setItem(cat_name + "_secured_percent", secure_val);
-
-		// 		//calculate permanent loss
-		// 		var loss = (percent_opportunity - secure_percent).toFixed(2)
-		// 		loss = String(loss) + " %"
-		// 		localStorage.setItem(cat_name + "_loss_percent", loss);
-		// 	}
-		// }
 		
 	}
 
@@ -900,24 +772,6 @@ calculate.addEventListener("click", function()	{
 				}
 			}
 		}
-
-		//establish the incomplete categories
-		// for(var x = 0; x < localStorage.length; x++)	{
-		// 	if(localStorage.key(x).includes("category_"))	{
-		// 		var cat_name = localStorage.getItem(localStorage.key(x));
-		// 		var completeness = localStorage.getItem(cat_name + "_completed_info");
-		// 		if(completeness.split(" / ")[0] !== completeness.split(" / ")[1])	{
-		// 			//the category is not yet complete
-		// 			if(incompletes === "")	{
-		// 				incompletes = cat_name
-		// 			}
-		// 			else {
-		// 				incompletes += "," + cat_name
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 
 		localStorage.setItem("incomplete", incompletes);
 
